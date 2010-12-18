@@ -1,0 +1,9 @@
+<VirtualHost *>
+        ServerName <%= virtual_hostname %>
+        DocumentRoot <%= deploy_to %>/current/public
+        RailsBaseURI /
+        PassengerLogLevel 2
+        PassengerPoolIdleTime 0
+        PassengerDefaultUser rails
+</VirtualHost>
+

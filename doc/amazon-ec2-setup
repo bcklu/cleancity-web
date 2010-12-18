@@ -1,0 +1,59 @@
+== EC2 SETUP ==
+* get amazon ec2 account
+* create new instance
+- ami-48c43121 
+* change default security group
+- add ssh to group
+- add http to group
+* create new keypair
+- save the new pem file to config/deploy.pem
+
+* login to host with 
+- ssh -i config/deploy.pem ubuntu@hostname
+
+* install mysql
+- apt-get install mysql-server
+
+* install passenger
+- passenger-install-apache2-module
+
+* create file /etc/apache2/conf.d/passenger
+-- CUT --
+ LoadModule passenger_module /usr/local/lib/ruby/gems/1.9.1/gems/passenger-2.2.15/ext/apache2/mod_passenger.so
+ PassengerRoot /usr/local/lib/ruby/gems/1.9.1/gems/passenger-2.2.15
+ PassengerRuby /usr/local/bin/ruby
+---------
+
+* create dababase
+- mysqladmin create cleancity
+
+* create user
+mysql -P << EOF
+create user 'cleancity' identified by 'cleancity';
+grant all on *.* to 'cleancity'@'localhost';
+flush privileges;
+EOF
+
+== domainsetup (dyndns) ==
+register new account, setup domain name to point to ec2 hostname
+
+== initial rails setup == (in project)
+* create shared folders, apache virtual host config
+- cap deploy:setup
+
+== update shared config ==
+* update database.yml
+-- CUT --
+production:
+  adapter: mysql
+  database: cleancity
+  username: cleancity
+  password: cleancity0
+---------
+
+* enable virtual host
+a2ensite clearcity
+
+== initial deploy ==
+* cap deploy
+
