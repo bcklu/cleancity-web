@@ -7,7 +7,7 @@ Feature: Sign up
     When I go to the sign up page
     And I submit my registration information
     Then I should receive an email with a link to a confirmation page
-    And I should be on the sign in page
+    And I should be on the home page
     When I click on the confirmation link in the confirmation email
     Then I should be signed in
     And I should be on the home page

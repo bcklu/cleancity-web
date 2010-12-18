@@ -5,7 +5,7 @@ class IncidentReportsController < ApplicationController
   def create
 
     # accept either user or author
-    user = find_user(if params[:user].blank? ? params[:author] : params[:user])
+    user = find_user(params[:user].blank? ? params[:author] : params[:user])
 
     # temporary create the incident report
     # TODO: move this into virtual model method?
