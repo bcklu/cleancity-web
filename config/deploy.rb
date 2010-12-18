@@ -21,7 +21,11 @@ set :db_user, "rails"
 ssh_options[:keys] = %w(config/deploy.pem)
 set :scm, "git"
 #set :deploy_via, :copy
-set :copy_strategy, :export
+#set :copy_strategy, :export
+set :deploy_via, :remote_cache
+set :branch, :master
+set :git_shallow_clone, 1
+set :scm_verbose, true
 #set :use_sudo, false
 
 set :deploy_to, "/var/rails/#{application}"
