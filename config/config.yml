@@ -5,8 +5,11 @@ defaults: &defaults
   host: localhost:3000
   identities:
     twitter:
-      key: Ank92dam8rUTSfBtxN7AWg
-      secret: kl95VO9BWzb6a4NL8dZJbosJMm4kmiGPoC0LKvdV6OI
+      key: lNoxZ6nl76MxkQHgp9Nn6w
+      secret: a2oqxyw3BXcbznqlu4Pm5kPxOQcBRt3OIrTbp6G7v0
+    facebook:
+      key: "171571639549640"
+      secret: "c6a46421793b3bb86cae77ec82363486"
 
 development:
   <<: *defaults

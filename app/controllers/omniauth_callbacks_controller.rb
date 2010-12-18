@@ -3,6 +3,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     callback
   end
 
+  def facebook
+    callback
+  end
+
   private
 
   def callback
