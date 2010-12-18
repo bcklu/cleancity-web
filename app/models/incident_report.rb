@@ -10,4 +10,15 @@ class IncidentReport < ActiveRecord::Base
   has_many :dislikers, :class_name => 'User', :through => :incident_reports_users, :conditions => ["type = ?", "dislike"], :source => :user
 
   has_many :no_problemers, :class_name => 'User', :through => :incident_reports_users, :conditions => ["type = ?", "no-problem"], :source => :user
+  def lat
+    latitude
+  end
+
+  def lng
+    longitude
+  end
+
+  def location_valid?
+    latitude > 0.0 && longitude > 0.0
+  end
 end

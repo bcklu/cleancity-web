@@ -4,6 +4,12 @@
   <%= image_tag(@incident_report.image.image.url) unless @incident_report.image.nil? %>
 </p>
 
+<% if @incident_report.location_valid? %>
+<p>
+<%= draw_map_of @incident_report %>
+</p>
+<% end %>
+
 <p>
   <b>Description:</b>
   <%= @incident_report.description %>
