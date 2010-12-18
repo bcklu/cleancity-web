@@ -1,6 +1,25 @@
 require 'base64'
+
 class IncidentReportsController < ApplicationController
   respond_to :json
+
+  def dislike
+    ir = IncidentReport.find(params[:id])
+    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
+    tmp.type = "dislike"
+    tmp.save
+
+    redirect_to incident_report_path(ir.id)
+  end
+
+  def not_a_problem
+    ir = IncidentReport.find(params[:id])
+    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
+    tmp.type = "not_a_problem"
+    tmp.save
+
+    redirect_to incident_report_path(ir.id)
+  end
 
   def create
 
@@ -16,8 +35,19 @@ class IncidentReportsController < ApplicationController
                                           :author => user
 
     # store image data in a temporary file
+
+    if p[:image].blank?
+      render :status => 500, :text => "no image given"
+      return
+    end
+
     fp = Tempfile.new "image"
-    size = fp.write(Base64.decode64(p[:image]))
+    begin
+      size = fp.write(Base64.decode64(p[:image]))
+    rescue
+      render :status => 500, :text => "invalid image"
+      return
+    end
 
     # create the image
     image = @incident_report.build_image :image => fp
@@ -30,6 +60,22 @@ class IncidentReportsController < ApplicationController
     end
   end
 
+  def show
+    @incident_report ||= IncidentReport.find(params[:id])
+  end
+
+  def new
+    @current_object ||= IncidentReport.new
+  end
+
+  def index
+    @incident_reports ||= IncidentReport.all
+  end
+
+  def edit
+    @incident_report ||= IncidentReport.find(params[:id])
+  end
+
   protected
 
   # create user (currently shortcut)
@@ -38,9 +84,5 @@ class IncidentReportsController < ApplicationController
     user.password = user.password_confirmation = params[:user]
 
     user
-  end
-
-  def collection
-    @incident_reports ||= end_of_association_chain.paginate(:page => params[:page])
   end
 end
