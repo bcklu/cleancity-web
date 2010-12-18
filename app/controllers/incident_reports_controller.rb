@@ -1,6 +1,6 @@
 require 'base64'
 class IncidentReportsController < ApplicationController
-  inherit_resources
+  respond_to :json
 
   def create
 
@@ -24,7 +24,11 @@ class IncidentReportsController < ApplicationController
     image = @incident_report.build_image :image => fp
     fp.close(true)
 
-    create!
+    if @incident_report.save
+      render :status => 200, :text => "".to_json
+    else
+      render :status => 500, :text => @incident_report.errors.full_messages.join(",").to_json
+    end
   end
 
   protected

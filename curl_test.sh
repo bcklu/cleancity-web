@@ -1,0 +1,1 @@
+curl -v -H "Content-Type: application/json" -X POST -d '{"incident_report":{"author_id":"3","description":"mydesc","latitude":"033","longitude":"044", "image":"aGVsbG8gaW1hZ2U="}}' http://localhost:3000/1/incident_reports
