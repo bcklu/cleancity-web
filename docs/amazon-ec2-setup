@@ -1,1 +1,4 @@
 == EC2 SETUP ==
+
+== dyndns ==
+register new account, setup domain name to point to ec2 domain
