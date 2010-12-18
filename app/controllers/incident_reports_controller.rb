@@ -1,3 +1,4 @@
+require 'base64'
 class IncidentReportsController < ApplicationController
   inherit_resources
 
@@ -16,10 +17,10 @@ class IncidentReportsController < ApplicationController
 
     # store image data in a temporary file
     fp = Tempfile.new "image"
-    size = fp.write(Base64.decode64(params[:image]))
+    size = fp.write(Base64.decode64(p[:image]))
 
     # create the image
-    image = @incident_report.image.create :image => fp
+    image = @incident_report.build_image :image => fp
     fp.close(true)
 
     create!
