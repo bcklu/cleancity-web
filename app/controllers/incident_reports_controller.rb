@@ -41,17 +41,13 @@ class IncidentReportsController < ApplicationController
       return
     end
 
-    fp = Tempfile.new "image"
     begin
-      size = fp.write(Base64.decode64(p[:image]))
+      decoded = Base64.decode64(p[:image])
+      image = @incident_report.build_image :image => decoded
     rescue
       render :status => 500, :text => "invalid image"
       return
     end
-
-    # create the image
-    image = @incident_report.build_image :image => fp
-    fp.close(true)
 
     if @incident_report.save
       render :status => 200, :text => "".to_json
