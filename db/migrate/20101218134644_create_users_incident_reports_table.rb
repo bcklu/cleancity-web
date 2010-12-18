@@ -1,9 +1,11 @@
 class CreateUsersIncidentReportsTable < ActiveRecord::Migration
   def self.up
-    create_table :incident_reports_users, :id => false do |t|
+    create_table :incident_reports_users do |t|
       t.references :user
       t.references :incident_report
       t.string :type
+
+      t.timestamps
     end
   end
 

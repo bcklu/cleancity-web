@@ -39,10 +39,12 @@ ActiveRecord::Schema.define(:version => 20101218134644) do
     t.datetime "updated_at"
   end
 
-  create_table "incident_reports_users", :id => false, :force => true do |t|
-    t.integer "user_id"
-    t.integer "incident_report_id"
-    t.string  "type"
+  create_table "incident_reports_users", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "incident_report_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_identities", :force => true do |t|
