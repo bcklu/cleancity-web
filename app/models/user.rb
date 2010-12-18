@@ -11,5 +11,6 @@ class User < ActiveRecord::Base
     "#{self[:full_name]} (#{email})"
   end
 
-  has_many :incident_reports
+  has_many :incident_reports, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
 end

@@ -9,6 +9,7 @@ class IncidentReportsController < ApplicationController
     user.password = user.password_confirmation = params[:user]
 
     # temporary create the incident report
+    # TODO: move this into virtual model method?
     p = params[:incident_report] || {}
     @incident_report = IncidentReport.new :latitude => p[:latitude],
                                           :longitude => p[:longitude],
