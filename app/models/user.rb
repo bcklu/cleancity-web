@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
 
   has_many :incident_reports, :dependent => :destroy
   has_many :comments, :dependent => :destroy
+  has_many :incident_reports_users, :dependent => :destroy
 end

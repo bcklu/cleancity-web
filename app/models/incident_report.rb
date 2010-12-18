@@ -5,4 +5,9 @@ class IncidentReport < ActiveRecord::Base
 
   validates_presence_of :latitude, :longitude, :description, :author, :image
   validates_numericality_of :latitude, :longitude
+
+  has_many :incident_reports_users, :dependent => :destroy
+  has_many :dislikers, :class_name => 'User', :through => :incident_reports_users, :conditions => ["type = ?", "dislike"], :source => :user
+
+  has_many :no_problemers, :class_name => 'User', :through => :incident_reports_users, :conditions => ["type = ?", "no-problem"], :source => :user
 end

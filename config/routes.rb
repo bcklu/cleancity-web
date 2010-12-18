@@ -11,7 +11,12 @@ Rails3Base::Application.routes.draw do
   root :to => 'incident_reports#index'
 
   scope "/1" do
-    resources :incident_reports
+    resources :incident_reports do
+      member do
+        get 'dislike'
+        get 'not_a_problem'
+      end
+    end
 
     namespace :admin do resources :incident_reports end
   end

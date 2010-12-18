@@ -1,6 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <%= image_tag(@incident_report.image.image.url) unless @incident_report.image.nil? %>
+</p>
+
+<p>
   <b>Description:</b>
   <%= @incident_report.description %>
 </p>
@@ -15,6 +19,22 @@
   <%= @incident_report.longitude %>
 </p>
 
+<p>
+  Dislikes: <%= @incident_report.dislikers.count %><br/>
+  Not-A-Problem: <%= @incident_report.no_problemers.count %><br/>
+</p>
 
-<%= link_to 'Edit', edit_incident_report_path(@incident_report) %> |
+<p>
+</p>
+
+<p>
+  <% @incident_report.comments.each do |c| %>
+    <div id="comment_<%=c.id%>">
+      <%= c.body %>
+    </div>
+  <% end %>
+</p>
+
+<%= link_to 'Dislike', dislike_incident_report_path %>
+<%= link_to 'Not A Problem', not_a_problem_incident_report_path %>
 <%= link_to 'Back', incident_reports_path %>

@@ -1,9 +1,9 @@
-<%= semantic_form_for(resource) do |form| %>
+<%= semantic_form_for(@current_object) do |form| %>
   <%= form.inputs do %>
     <%= form.input :description %>
     <%= form.input :latitude %>
     <%= form.input :longitude %>
   <% end %>
 
-  <%= form.buttons %> or <%= link_to 'cancel', resource %>
+  <%= form.buttons %> or <%= link_to 'cancel', @current_object %>
 <% end %>
