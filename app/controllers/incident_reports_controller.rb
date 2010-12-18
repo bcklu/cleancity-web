@@ -4,9 +4,8 @@ class IncidentReportsController < ApplicationController
 
   def create
 
-    # create user (currently shortcut)
-    user = User.find_or_create_by_full_name(params[:user])
-    user.password = user.password_confirmation = params[:user]
+    # accept either user or author
+    user = find_user(if params[:user].blank? ? params[:author] : params[:user])
 
     # temporary create the incident report
     # TODO: move this into virtual model method?
@@ -32,6 +31,14 @@ class IncidentReportsController < ApplicationController
   end
 
   protected
+
+  # create user (currently shortcut)
+  def find_user(username)
+    user = User.find_or_create_by_full_name(params[:user])
+    user.password = user.password_confirmation = params[:user]
+
+    user
+  end
 
   def collection
     @incident_reports ||= end_of_association_chain.paginate(:page => params[:page])
