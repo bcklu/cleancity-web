@@ -19,14 +19,13 @@ role :db, "cleancity.dyndns.org", :primary => true
 set :db_user, "rails"
 
 ssh_options[:keys] = %w(config/deploy.pem)
+ssh_options[:user] = "root"
+set :user, "root"
 set :scm, "git"
-#set :deploy_via, :copy
-#set :copy_strategy, :export
 set :deploy_via, :remote_cache
 set :branch, :master
 set :git_shallow_clone, 1
 set :scm_verbose, true
-#set :use_sudo, false
 
 set :deploy_to, "/var/rails/#{application}"
 
