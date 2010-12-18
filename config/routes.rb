@@ -16,6 +16,8 @@ Rails3Base::Application.routes.draw do
         get 'dislike'
         get 'not_a_problem'
       end
+
+      resources :incident_report_comments
     end
 
     namespace :admin do resources :incident_reports end

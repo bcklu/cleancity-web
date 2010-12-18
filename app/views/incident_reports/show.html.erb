@@ -35,6 +35,17 @@
   <% end %>
 </p>
 
+<p>
+  <% @comment = @incident_report.comments.build %>
+  <%= semantic_form_for(@comment, :url => incident_report_incident_report_comments_path(@incident_report)) do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :body %>
+    <% end %>
+
+    <%= form.buttons %>
+  <% end %>
+</p>
+
 <%= link_to 'Dislike', dislike_incident_report_path %>
 <%= link_to 'Not A Problem', not_a_problem_incident_report_path %>
 <%= link_to 'Back', incident_reports_path %>
