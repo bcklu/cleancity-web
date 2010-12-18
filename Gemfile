@@ -15,8 +15,12 @@ gem 'will_paginate', '3.0.pre2'
 
 group :test, :development do
   gem 'mongrel', '1.2.0.pre2'
+<<<<<<< HEAD:Gemfile
 	gem 'escape_utils'
   gem 'sqlite3-ruby', '1.3.2'
+=======
+#  gem 'sqlite3-ruby', '1.3.2'
+>>>>>>> add: incident_reports:Gemfile
 #  gem 'redgreen', '1.2.2'
   gem 'rr', '1.0.2'
   gem 'factory_girl_rails', '1.0'
@@ -36,3 +40,5 @@ group :test, :development do
   gem 'rails3-generators', '0.14.0'
   gem 'rcov', '0.9.9'
 end
+
+gem 'paperclip'

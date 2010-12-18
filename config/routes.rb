@@ -9,4 +9,8 @@ Rails3Base::Application.routes.draw do
   end
 
   root :to => 'dashboard#index'
+
+  scope "/1" do
+    resources :incident_reports
+  end
 end

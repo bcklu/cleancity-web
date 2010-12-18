@@ -10,4 +10,6 @@ class User < ActiveRecord::Base
   def full_name_with_email
     "#{self[:full_name]} (#{email})"
   end
+
+  has_many :incident_reports
 end

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @incident_report.description %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @incident_report.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @incident_report.longitude %>
+</p>
+
+
+<%= link_to 'Edit', edit_incident_report_path(@incident_report) %> |
+<%= link_to 'Back', incident_reports_path %>

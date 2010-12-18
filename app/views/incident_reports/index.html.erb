@@ -1,0 +1,16 @@
+<% title 'Listing incident_reports' %>
+
+<% unless @incident_reports.blank? %>
+  <%= table_for(@incident_reports) %>
+  <%= will_paginate(@incident_reports) %>
+<% else %>
+  <p>Now it's time to create some data here. To create new entry, please use the button below.</p>
+  <br /><br />
+<% end %>
+
+<br />
+
+<p>
+  <%= link_to 'New Incident report', new_incident_report_path, :class => 'button' %>
+</p>
+
