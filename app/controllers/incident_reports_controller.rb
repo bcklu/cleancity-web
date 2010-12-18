@@ -42,8 +42,10 @@ class IncidentReportsController < ApplicationController
     end
 
     begin
-      decoded = Base64.decode64(p[:image])
-      image = @incident_report.build_image :image => decoded
+      fp = File.open("/tmp/#{SecureRandom.hex(11)}.jpg", "wb+")
+      size = fp.write Base64.decode64(p[:image])
+      image = @incident_report.build_image :image => fp
+      fp.close
     rescue
       render :status => 500, :text => "invalid image"
       return
