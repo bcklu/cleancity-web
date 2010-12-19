@@ -88,7 +88,7 @@ class Api::IncidentReportsController < ApplicationController
                                                       :longitude => ir.longitude,
                                                       :description => ir.description,
                                                       :user => ir.author ? ir.author.full_name : "anonymous",
-                                                      :image => ir.image ? ir.image.image.url : "none" }
+                                                      :image => ir.image ? "http://#{configatron.host}#{ir.image.image.url}" : "none" }
         }
       end
     end
