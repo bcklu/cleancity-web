@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Full name:</b>
+  <%= @admin_user.full_name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @admin_user.email %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @admin_user.password %>
+</p>
+
+<p>
+  <b>Password confirmation:</b>
+  <%= @admin_user.password_confirmation %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_user_path(@admin_user) %> |
+<%= link_to 'Back', admin_users_path %>

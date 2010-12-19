@@ -1,42 +1,44 @@
 require 'base64'
 
-class IncidentReportsController < ApplicationController
+class Api::IncidentReportsController < ApplicationController
+  
+  respond_to :json
+
   DEFAULT_SEARCH_LIMIT = 10
 
-  def dislike
-    ir = IncidentReport.find(params[:id])
-    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
-    tmp.type = "dislike"
-    tmp.save
-
-    redirect_to incident_report_path(ir.id)
-  end
-
-  def not_a_problem
-    ir = IncidentReport.find(params[:id])
-    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
-    tmp.type = "not_a_problem"
-    tmp.save
-
-    redirect_to incident_report_path(ir.id)
-  end
-
-  def resolve
-    ir = IncidentReport.find(params[:id])
-    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
-    tmp.type = "resolved"
-    tmp.save
-
-    redirect_to incident_report_path(ir.id)
-  end
-
   def create
+    
+    # unless params[:access_token]
+    #   render :status => 401, :text => 'Access token required!'
+    # end
+    
+    p = params[:incident_report] || {}
+    
+    # get oauth access token and perform authentication with facebook
+    rg = RestGraph.new(:access_token => p[:access_token])
+    begin
+      fb_creds = rg.get('me')
+    rescue
+      render :status => 401, :text => 'Authentication failed'
+      return
+    end
+    
+    user = User.find_by_identity_for('facebook', fb_creds['id'], nil)
+    unless user
+      # create user with facebook info from fb_creds
+      user = User.new(:email => "#{fb_creds['id']}@facebook.com", :full_name => fb_creds['name'])
+      user.skip_confirmation!
+
+      user.identities.build(:provider => 'facebook', :uid => fb_creds['id'])
+      user.save!
+    end
+        
+    
     # accept either user or author
-    user = find_user(params[:user].blank? ? params[:author] : params[:user])
+    #user = find_user(params[:user].blank? ? params[:author] : params[:user])
 
     # temporary create the incident report
     # TODO: move this into virtual model method?
-    p = params[:incident_report] || {}
     @incident_report = IncidentReport.new :latitude => p[:latitude],
                                           :longitude => p[:longitude],
                                           :description => p[:description],
@@ -46,17 +48,15 @@ class IncidentReportsController < ApplicationController
     if p[:image].blank?
       render :status => 500, :text => "no image given"
       return
-    elsif p[:image].is_a? ActionDispatch::Http::UploadedFile      
+    elsif p[:image].is_a? ActionDispatch::Http::UploadedFile
       img = Image.new :image => p[:image],
-                      :content_type => p[:image].content_type,
                       :incident_report => @incident_report
       @incident_report.image = img
     else
       begin
         fp = File.open("/tmp/#{SecureRandom.hex(11)}.jpg", "wb+")
         size = fp.write Base64.decode64(p[:image])
-        image = @incident_report.build_image :image => fp,
-                                             :content_type => "image/jpeg"
+        image = @incident_report.build_image :image => fp
         fp.close
       rescue
         render :status => 500, :text => "invalid image"
@@ -65,27 +65,18 @@ class IncidentReportsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
+      format.json do
         if @incident_report.save
-          redirect_to @incident_report
+          render :status => 200, :json => @incident_report.id
         else
-          render @incident_report
+          render :status => 500, :json => @incident_report.errors.full_messages.join(",").to_json
         end
       end
     end
   end
 
-  def show
-    @incident_report ||= IncidentReport.find(params[:id])
-  end
-
-  def new
-    @current_object ||= IncidentReport.new
-  end
-
   def index
     # allow searches to be geographically scoped
-    
     params[:limit] ||= DEFAULT_SEARCH_LIMIT
     
     if params.include?(:longitude) && params.include?(:latitude) && params.include?(:range_x) && params.include?(:range_y)
@@ -99,21 +90,24 @@ class IncidentReportsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html
+      format.json do
+        # prepare result statement
+        render :json => @incident_reports.map {|ir| { :latitude => ir.latitude,
+                                                      :longitude => ir.longitude,
+                                                      :description => ir.description,
+                                                      :user => ir.author ? ir.author.full_name : "anonymous",
+                                                      :image => ir.image ? "http://#{configatron.host}#{ir.image.image.url}" : "none" }
+        }
+      end
     end
   end
 
-  def edit
-    @incident_report ||= IncidentReport.find(params[:id])
-  end
-
-  protected
+  private
 
   # create user (currently shortcut)
   def find_user(username)
     user = User.find_or_create_by_full_name(params[:user])
     user.password = user.password_confirmation = params[:user]
-
     user
   end
 end

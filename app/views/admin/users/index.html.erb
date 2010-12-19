@@ -1,0 +1,18 @@
+<% title 'Listing admin_users' %>
+
+<% unless @admin_users.blank? %>
+  <%= table_for(@admin_users) do |t| %>
+	<%= t.data :email, :full_name, :actions => :all, :action_prefix=>'admin' %>
+  <% end %>
+  <%= will_paginate(@admin_users) %>
+<% else %>
+  <p>Now it's time to create some data here. To create new entry, please use the button below.</p>
+  <br /><br />
+<% end %>
+
+<br />
+
+<p>
+  <%= link_to 'New User', new_admin_user_path, :class => 'button' %>
+</p>
+

@@ -20,6 +20,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       session['devise.omniauth_data'] = auth.except('extra')
       redirect_to(new_user_registration_url)
+      #redirect_to(new_user_registration_url)
+      new_user = User.new_with_session(params, session)
+      sign_in_and_redirect(new_user, :event => :authentication)      
     end
   end
 end

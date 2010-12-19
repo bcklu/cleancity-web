@@ -22,9 +22,10 @@
         <div class="buttons">
 		  Dislikes: <%= @incident_report.dislikers.count %><br/>
 		  Not-A-Problem: <%= @incident_report.no_problemers.count %><br/>
+		  Resolvers: <%= @incident_report.resolvers.count %><br/>
 
 		  <%= link_to 'Stört mich auch', dislike_incident_report_path %>
-		  <input name="" value="Problem gelöst?" type="button" />
+		  <%= link_to "Problem gelöst?", resolve_incident_report_path %>
 		  <%= link_to 'kein schandfleck?', not_a_problem_incident_report_path %>
 		  <%= link_to 'Back', incident_reports_path %>
 

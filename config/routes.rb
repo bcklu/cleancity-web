@@ -8,18 +8,32 @@ Rails3Base::Application.routes.draw do
     get 'signup', :to => 'devise/registrations#new', :as => 'new_user_registration'
   end
 
-  root :to => 'incident_reports#index'
+  root :to => redirect{|p, req| "http://schandflecken.wordpress.com" }
 
-  scope "/1" do
-    resources :incident_reports do
-      member do
-        get 'dislike'
-        get 'not_a_problem'
-      end
+  match "/" => redirect{|p, req| "http://schandflecken.wordpress.com" }
 
-      resources :incident_report_comments
+  resources :incident_reports do
+    member do
+      get 'dislike'
+      get 'not_a_problem'
+      get 'resolve'
     end
 
-    namespace :admin do resources :incident_reports end
+    resources :incident_report_comments
+  end
+
+  # static pages
+  match "/agb" => "misc#agb"
+  match "/faq" => "misc#faq"
+
+  # API access
+  scope '/1' do
+    resources :incident_reports, :controller => 'api/incident_reports'
+  end
+  
+  # TODO only allow access to admins
+  namespace :admin do
+    resources :incident_reports
+    resources :users
   end
 end
