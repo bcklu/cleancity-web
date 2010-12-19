@@ -24,10 +24,9 @@ Rails3Base::Application.routes.draw do
     resources :incident_reports, :controller => 'api/incident_reports'
   end
   
-  #as :admin do
+  # TODO only allow access to admins
   namespace :admin do
     resources :incident_reports
     resources :users
-
   end
 end
