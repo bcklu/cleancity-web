@@ -21,23 +21,7 @@ class IncidentReportsController < ApplicationController
     redirect_to incident_report_path(ir.id)
   end
 
-  def create
-    
-    # # get oauth access token and perform authentication with facebook
-    # rg = RestGraph.new(:access_token => params[:access_token]
-    # begin
-    #   fb_creds = rg.get('me')
-    # rescue
-    #   render :status => 401, :text => 'Authentication failed'
-    # end
-    # end
-    # end
-    # 
-    # user = User.find_by_identity_for(provider, uid, nil)
-    # unless user
-    #   # create user with facebook info from fb_creds
-    # end
-    
+  def create        
     # accept either user or author
     user = find_user(params[:user].blank? ? params[:author] : params[:user])
 
