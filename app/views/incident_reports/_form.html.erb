@@ -3,6 +3,8 @@
     <%= form.input :description %>
     <%= form.input :latitude %>
     <%= form.input :longitude %>
+	<%= form.input :user_name %>
+	<%= form.input :image, :as => :file %>
   <% end %>
 
   <%= form.buttons %> or <%= link_to 'cancel', @current_object %>

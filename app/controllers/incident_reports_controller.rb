@@ -1,7 +1,7 @@
 require 'base64'
 
 class IncidentReportsController < ApplicationController
-  respond_to :json
+  respond_to :json, :html
 
   DEFAULT_SEARCH_LIMIT = 10
 
@@ -24,7 +24,6 @@ class IncidentReportsController < ApplicationController
   end
 
   def create
-
     # accept either user or author
     user = find_user(params[:user].blank? ? params[:author] : params[:user])
 
@@ -53,10 +52,21 @@ class IncidentReportsController < ApplicationController
       return
     end
 
-    if @incident_report.save
-      render :status => 200, :text => "".to_json
-    else
-      render :status => 500, :text => @incident_report.errors.full_messages.join(",").to_json
+    respond_to do |format|
+      format.json do
+        if @incident_report.save
+          render :status => 200, :json => @incident_report.id
+        else
+          render :status => 500, :json => @incident_report.errors.full_messages.join(",").to_json
+        end
+      end
+      format.html do
+        if @incident_report.save
+          redirect_to @incident_report
+        else
+          render @incident_report
+        end
+      end
     end
   end
 

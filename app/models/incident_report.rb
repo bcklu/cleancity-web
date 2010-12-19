@@ -29,4 +29,21 @@ class IncidentReport < ActiveRecord::Base
   def location_valid?
     latitude > 0.0 && longitude > 0.0
   end
+  
+  def user_name
+    author.full_name if author
+  end
+  
+  def user_name=(new_name)
+    if self.author
+      self.author.full_name = new_name
+      self.athor.save
+    else
+      # TODO: we need user management..
+      self.author = User.find_or_create_by_email("someemailaddress@somedomain.xxx")
+      self.author.password = self.author.password_confirmation = "fubar again"
+      self.author.full_name = new_name
+      self.author.save!
+    end
+  end
 end
