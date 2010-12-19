@@ -46,15 +46,17 @@ class IncidentReportsController < ApplicationController
     if p[:image].blank?
       render :status => 500, :text => "no image given"
       return
-    elsif p[:image].is_a? ActionDispatch::Http::UploadedFile
+    elsif p[:image].is_a? ActionDispatch::Http::UploadedFile      
       img = Image.new :image => p[:image],
+                      :content_type => p[:image].content_type,
                       :incident_report => @incident_report
       @incident_report.image = img
     else
       begin
         fp = File.open("/tmp/#{SecureRandom.hex(11)}.jpg", "wb+")
         size = fp.write Base64.decode64(p[:image])
-        image = @incident_report.build_image :image => fp
+        image = @incident_report.build_image :image => fp,
+                                             :content_type => "image/jpeg"
         fp.close
       rescue
         render :status => 500, :text => "invalid image"
