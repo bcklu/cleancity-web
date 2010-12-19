@@ -12,7 +12,7 @@ class Image < ActiveRecord::Base
   def extract_location
     exif = EXIFR::JPEG.new(image.queued_for_write[:original].path)
     
-    if !exif.gps_longitude.empty? && !exif.gps_latitude.empty?
+    if exif && exif.gps_longitude && exif.gps_latitude && !exif.gps_longitude.empty? && !exif.gps_latitude.empty?
       longitude = exif.gps_longitude[0] + exif.gps_longitude[1]/60 + exif.gps_longitude[2]/3600
       latitude = exif.gps_latitude[0] + exif.gps_latitude[1]/60 + exif.gps_latitude[2]/3600
     

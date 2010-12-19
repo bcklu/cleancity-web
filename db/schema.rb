@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101218134644) do
+ActiveRecord::Schema.define(:version => 20101219130353) do
 
   create_table "comments", :force => true do |t|
     t.string   "body"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20101218134644) do
     t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "aasm_state"
   end
 
   create_table "incident_reports_users", :force => true do |t|

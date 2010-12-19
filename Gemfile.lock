@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     ZenTest (4.4.0)
+    aasm (2.2.0)
     abstract (1.0.0)
     actionmailer (3.0.3)
       actionpack (= 3.0.3)
@@ -247,6 +248,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   autotest (= 4.4.1)
   autotest-rails (= 4.1.0)
   capybara (= 0.3.9)

@@ -1,4 +1,6 @@
 class IncidentReport < ActiveRecord::Base
+  include AASM
+
   belongs_to :author, :class_name => 'User'
   has_one :image, :dependent => :destroy
   has_many :comments, :dependent => :destroy
@@ -18,14 +20,20 @@ class IncidentReport < ActiveRecord::Base
                         longitude - range_x, longitude + range_x, latitude - range_y, latitude + range_y).limit(limit)
               }
 
-  def lat
-    latitude
-  end
+  aasm_initial_state :published
 
-  def lng
-    longitude
-  end
+  aasm_state :published
+  aasm_state :not_a_problem
+  aasm_state :solved
 
+  aasm_event :solve do
+    transitions :to => :solved, :from => [:published, :not_a_problem]
+  end
+  
+  aasm_event :mark_as_no_problem do
+    transitions :to => :not_a_problem, :from => [:published]
+  end
+  
   def location_valid?
     latitude > 0.0 && longitude > 0.0
   end
