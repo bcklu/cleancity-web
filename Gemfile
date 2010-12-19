@@ -38,3 +38,4 @@ group :test, :development do
 end
 
 gem 'paperclip'
+gem 'exifr'

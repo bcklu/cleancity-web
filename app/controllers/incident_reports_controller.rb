@@ -34,22 +34,25 @@ class IncidentReportsController < ApplicationController
                                           :longitude => p[:longitude],
                                           :description => p[:description],
                                           :author => user
-
+    
     # store image data in a temporary file
-
     if p[:image].blank?
       render :status => 500, :text => "no image given"
       return
-    end
-
-    begin
-      fp = File.open("/tmp/#{SecureRandom.hex(11)}.jpg", "wb+")
-      size = fp.write Base64.decode64(p[:image])
-      image = @incident_report.build_image :image => fp
-      fp.close
-    rescue
-      render :status => 500, :text => "invalid image"
-      return
+    elsif p[:image].is_a? ActionDispatch::Http::UploadedFile
+      img = Image.new :image => p[:image],
+                      :incident_report => @incident_report
+      @incident_report.image = img
+    else
+      begin
+        fp = File.open("/tmp/#{SecureRandom.hex(11)}.jpg", "wb+")
+        size = fp.write Base64.decode64(p[:image])
+        image = @incident_report.build_image :image => fp
+        fp.close
+      rescue
+        render :status => 500, :text => "invalid image"
+        return
+      end
     end
 
     respond_to do |format|
