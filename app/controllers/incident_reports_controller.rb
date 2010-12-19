@@ -69,7 +69,7 @@ class IncidentReportsController < ApplicationController
   end
 
   def new
-    @current_object ||= IncidentReport.new
+    @incident_report ||= IncidentReport.new
   end
 
   def index
