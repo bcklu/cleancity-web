@@ -14,9 +14,9 @@ Rails3Base::Application.routes.draw do
 
   resources :incident_reports do
     member do
-      get 'dislike'
-      get 'not_a_problem'
-      get 'resolve'
+      IncidentReportsController::STATES.each do |state|
+        get state
+      end
     end
 
     resources :incident_report_comments

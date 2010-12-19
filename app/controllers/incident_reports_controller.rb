@@ -2,23 +2,17 @@ require 'base64'
 
 class IncidentReportsController < ApplicationController
   DEFAULT_SEARCH_LIMIT = 10
+  STATES = ["dislike", "not_a_problem", "resolve"]
+  
+  STATES.each do |state|
+    send :define_method, state do
+      ir = IncidentReport.find(params[:id])
+      tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
+      tmp.type = state == "resolved" ? "resolved" : state
+      tmp.save
 
-  def dislike
-    ir = IncidentReport.find(params[:id])
-    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
-    tmp.type = "dislike"
-    tmp.save
-
-    redirect_to incident_report_path(ir.id)
-  end
-
-  def not_a_problem
-    ir = IncidentReport.find(params[:id])
-    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
-    tmp.type = "not_a_problem"
-    tmp.save
-
-    redirect_to incident_report_path(ir.id)
+      redirect_to incident_report_path(ir.id)  
+    end
   end
 
   def resolve
