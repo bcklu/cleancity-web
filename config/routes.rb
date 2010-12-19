@@ -14,6 +14,7 @@ Rails3Base::Application.routes.draw do
     member do
       get 'dislike'
       get 'not_a_problem'
+      get 'resolve'
     end
 
     resources :incident_report_comments

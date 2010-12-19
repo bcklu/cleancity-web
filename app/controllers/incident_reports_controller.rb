@@ -21,7 +21,16 @@ class IncidentReportsController < ApplicationController
     redirect_to incident_report_path(ir.id)
   end
 
-  def create        
+  def resolve
+    ir = IncidentReport.find(params[:id])
+    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
+    tmp.type = "resolved"
+    tmp.save
+
+    redirect_to incident_report_path(ir.id)
+  end
+
+  def create
     # accept either user or author
     user = find_user(params[:user].blank? ? params[:author] : params[:user])
 
