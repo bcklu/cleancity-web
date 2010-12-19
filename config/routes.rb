@@ -8,7 +8,9 @@ Rails3Base::Application.routes.draw do
     get 'signup', :to => 'devise/registrations#new', :as => 'new_user_registration'
   end
 
-  root :to => 'incident_reports#index'
+  root :to => redirect{|p, req| "http://schandflecken.wordpress.com" }
+
+  match "/" => redirect{|p, req| "http://schandflecken.wordpress.com" }
 
   resources :incident_reports do
     member do
