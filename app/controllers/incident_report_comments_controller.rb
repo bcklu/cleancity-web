@@ -1,4 +1,7 @@
 class IncidentReportCommentsController < ApplicationController
+  
+  before_filter :authenticate_user!
+  
   def create
     ir = IncidentReport.find(params[:incident_report_id])
 

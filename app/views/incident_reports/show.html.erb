@@ -24,9 +24,11 @@
 		  Not-A-Problem: <%= @incident_report.no_problemers.count %><br/>
 		  Resolvers: <%= @incident_report.resolvers.count %><br/>
 
-		  <%= link_to 'Stört mich auch', dislike_incident_report_path %>
-		  <%= link_to "Problem gelöst?", resolve_incident_report_path %>
-		  <%= link_to 'kein schandfleck?', not_a_problem_incident_report_path %>
+		  <% if current_user %>
+		  	<%= link_to 'Stört mich auch', dislike_incident_report_path %>
+		  	<%= link_to "Problem gelöst?", resolve_incident_report_path %>
+		  	<%= link_to 'kein schandfleck?', not_a_problem_incident_report_path %>
+		  <% end %>
 		  <%= link_to 'Back', incident_reports_path %>
 
         </div><!--buttons-->

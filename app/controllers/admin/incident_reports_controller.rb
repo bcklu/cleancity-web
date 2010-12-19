@@ -1,6 +1,8 @@
 class Admin::IncidentReportsController < ApplicationController
   inherit_resources
 
+  before_filter :authenticate_user!
+
   protected
 
   def collection
