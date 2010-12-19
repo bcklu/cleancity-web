@@ -15,6 +15,7 @@ gem 'will_paginate', '3.0.pre2'
 
 gem 'aasm'
 gem 'paperclip'
+gem 'declarative_authorization'
 gem 'exifr'
 gem 'rest-graph'
 

@@ -14,4 +14,8 @@ class User < ActiveRecord::Base
   has_many :incident_reports, :dependent => :destroy, :foreign_key => :author_id
   has_many :comments, :dependent => :destroy, :foreign_key => :author_id
   has_many :incident_reports_users, :dependent => :destroy
+  
+  def role_symbols
+    admin? ? [:admin] : [:user]
+  end
 end

@@ -57,6 +57,7 @@ GEM
     cucumber-rails (0.3.2)
       cucumber (>= 0.8.0)
     culerity (0.2.12)
+    declarative_authorization (0.5.1)
     devise (1.2.rc)
       bcrypt-ruby (~> 2.1.2)
       orm_adapter (~> 0.0.2)
@@ -224,6 +225,7 @@ DEPENDENCIES
   configatron (= 2.6.4)
   cucumber (= 0.9.4)
   cucumber-rails (= 0.3.2)
+  declarative_authorization
   devise (= 1.2.rc)
   exifr
   factory_girl_rails (= 1.0)
