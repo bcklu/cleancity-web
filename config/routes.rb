@@ -10,16 +10,22 @@ Rails3Base::Application.routes.draw do
 
   root :to => 'incident_reports#index'
 
-  scope "/1" do
-    resources :incident_reports do
-      member do
-        get 'dislike'
-        get 'not_a_problem'
-      end
-
-      resources :incident_report_comments
+  resources :incident_reports do
+    member do
+      get 'dislike'
+      get 'not_a_problem'
     end
 
-    namespace :admin do resources :incident_reports end
+    resources :incident_report_comments
+  end
+
+  # API access
+  scope '/1' do
+    resources :incident_reports, :controller => 'api/incident_reports'
+  end
+  
+  #as :admin do
+  namespace :admin do
+    resources :incident_reports
   end
 end

@@ -1,25 +1,10 @@
 require 'base64'
 
-class IncidentReportsController < ApplicationController
+class Api::IncidentReportsController < ApplicationController
+  
+  respond_to :json
+
   DEFAULT_SEARCH_LIMIT = 10
-
-  def dislike
-    ir = IncidentReport.find(params[:id])
-    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
-    tmp.type = "dislike"
-    tmp.save
-
-    redirect_to incident_report_path(ir.id)
-  end
-
-  def not_a_problem
-    ir = IncidentReport.find(params[:id])
-    tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
-    tmp.type = "not_a_problem"
-    tmp.save
-
-    redirect_to incident_report_path(ir.id)
-  end
 
   def create
     # accept either user or author
@@ -54,27 +39,18 @@ class IncidentReportsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
+      format.json do
         if @incident_report.save
-          redirect_to @incident_report
+          render :status => 200, :json => @incident_report.id
         else
-          render @incident_report
+          render :status => 500, :json => @incident_report.errors.full_messages.join(",").to_json
         end
       end
     end
   end
 
-  def show
-    @incident_report ||= IncidentReport.find(params[:id])
-  end
-
-  def new
-    @current_object ||= IncidentReport.new
-  end
-
   def index
     # allow searches to be geographically scoped
-    
     params[:limit] ||= DEFAULT_SEARCH_LIMIT
     
     if params.include?(:longitude) && params.include?(:latitude) && params.include?(:range_x) && params.include?(:range_y)
@@ -88,21 +64,24 @@ class IncidentReportsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html
+      format.json do
+        # prepare result statement
+        render :json => @incident_reports.map {|ir| { :latitude => ir.latitude,
+                                                      :longitude => ir.longitude,
+                                                      :description => ir.description,
+                                                      :user => ir.author ? ir.author.full_name : "anonymous",
+                                                      :image => ir.image ? ir.image.image.url : "none" }
+        }
+      end
     end
   end
 
-  def edit
-    @incident_report ||= IncidentReport.find(params[:id])
-  end
-
-  protected
+  private
 
   # create user (currently shortcut)
   def find_user(username)
     user = User.find_or_create_by_full_name(params[:user])
     user.password = user.password_confirmation = params[:user]
-
     user
   end
 end
