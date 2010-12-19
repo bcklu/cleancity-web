@@ -8,29 +8,37 @@ class Api::IncidentReportsController < ApplicationController
 
   def create
     
-    # # get oauth access token and perform authentication with facebook
-    # rg = RestGraph.new(:access_token => params[:access_token]
-    # begin
-    #   fb_creds = rg.get('me')
-    # rescue
-    #   render :status => 401, :text => 'Authentication failed'
-    # end
-    # end
-    # end
-    # 
-    # user = User.find_by_identity_for(provider, uid, nil)
-    # unless user
-    #   # create user with facebook info from fb_creds
+    # unless params[:access_token]
+    #   render :status => 401, :text => 'Access token required!'
     # end
     
+    p = params[:incident_report] || {}
     
+    # get oauth access token and perform authentication with facebook
+    rg = RestGraph.new(:access_token => p[:access_token])
+    begin
+      fb_creds = rg.get('me')
+    rescue
+      render :status => 401, :text => 'Authentication failed'
+      return
+    end
+    
+    user = User.find_by_identity_for('facebook', fb_creds['id'], nil)
+    unless user
+      # create user with facebook info from fb_creds
+      user = User.new(:email => "#{fb_creds['id']}@facebook.com", :full_name => fb_creds['name'])
+      user.skip_confirmation!
+
+      user.identities.build(:provider => 'facebook', :uid => fb_creds['id'])
+      user.save!
+    end
+        
     
     # accept either user or author
-    user = find_user(params[:user].blank? ? params[:author] : params[:user])
+    #user = find_user(params[:user].blank? ? params[:author] : params[:user])
 
     # temporary create the incident report
     # TODO: move this into virtual model method?
-    p = params[:incident_report] || {}
     @incident_report = IncidentReport.new :latitude => p[:latitude],
                                           :longitude => p[:longitude],
                                           :description => p[:description],
