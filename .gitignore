@@ -8,3 +8,4 @@ config/database.yml
 doc/**/*
 public/system/**/*
 config/deploy.pem
+.DS_Store
