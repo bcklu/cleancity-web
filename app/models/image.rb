@@ -16,7 +16,7 @@ class Image < ActiveRecord::Base
       longitude = exif.gps_longitude[0] + exif.gps_longitude[1]/60 + exif.gps_longitude[2]/3600
       latitude = exif.gps_latitude[0] + exif.gps_latitude[1]/60 + exif.gps_latitude[2]/3600
     
-      if incident_report.location_valid?
+      if !incident_report.location_valid?
         incident_report.longitude = longitude
         incident_report.latitude = latitude
         incident_report.save!
