@@ -1,0 +1,10 @@
+<%= semantic_form_for resource, :url => resource.new_record? ? admin_users_path : admin_user_path(resource) do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :full_name %>
+    <%= form.input :email %>
+    <%= form.input :password %>
+    <%= form.input :password_confirmation %>
+  <% end %>
+
+  <%= form.buttons %> or <%= link_to 'cancel', :back %>
+<% end %>

@@ -27,5 +27,7 @@ Rails3Base::Application.routes.draw do
   #as :admin do
   namespace :admin do
     resources :incident_reports
+    resources :users
+
   end
 end
