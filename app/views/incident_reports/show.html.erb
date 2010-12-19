@@ -1,3 +1,10 @@
+<% content_for :head do %>
+    <%= javascript_include_tag 'gmap' %>
+    <script type="text/javascript"
+          src="http://maps.google.com/maps/api/js?sensor=false">
+    </script>
+<% end %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -5,9 +12,12 @@
 </p>
 
 <% if @incident_report.location_valid? %>
-<p>
-<%= draw_map_of @incident_report %>
-</p>
+<div id="map" style="background: #ccc; width:300px; height: 300px;"></div>
+<script type="text/javascript">
+$(document).ready(function(){
+    dynamic_gmap_with_marker("map", <%= @incident_report.latitude %>, <%= @incident_report.longitude%>, "<%= escape_javascript(@incident_report.description) %>");
+});
+</script>
 <% end %>
 
 <p>

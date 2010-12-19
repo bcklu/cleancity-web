@@ -35,7 +35,6 @@ GEM
     autotest-rails (4.1.0)
       ZenTest
     bcrypt-ruby (2.1.2)
-    bhm-google-maps (0.3.0)
     builder (2.1.2)
     capybara (0.3.9)
       culerity (>= 0.2.4)
@@ -248,7 +247,6 @@ PLATFORMS
 DEPENDENCIES
   autotest (= 4.4.1)
   autotest-rails (= 4.1.0)
-  bhm-google-maps
   capybara (= 0.3.9)
   capybara-mechanize (= 0.2.3)
   configatron (= 2.6.4)
