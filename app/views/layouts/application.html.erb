@@ -4,7 +4,6 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><%= configatron.app_name %> - <%= yield(:title) || 'Home' %></title>
-    <%= stylesheet_link_tag :flutie, 'application' %>
     <%= javascript_include_tag :defaults, :cache => true %>
 	<%= stylesheet_link_tag '960', 'style', :cache => true%>
     <%= csrf_meta_tag %>
@@ -13,8 +12,7 @@
   <body>
 
 	<div id="header" class="container_12">
-		<div id="logo">
-	    	logo goes here
+	<div id="logo">
 	    </div><!--logo-->
 
 	    <div id="menu">
