@@ -20,6 +20,10 @@ Rails3Base::Application.routes.draw do
     resources :incident_report_comments
   end
 
+  # static pages
+  match "/agb" => "misc#agb"
+  match "/faq" => "misc#faq"
+
   # API access
   scope '/1' do
     resources :incident_reports, :controller => 'api/incident_reports'
