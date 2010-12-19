@@ -86,10 +86,12 @@ class IncidentReportsController < ApplicationController
     
     params[:limit] ||= DEFAULT_SEARCH_LIMIT
     
-    if params.include?(:longitude) && params.include?(:latitude)
-      @incident_reports ||= IncidentReport.near(params[:longitude].to_f,
-                                                params[:latitude].to_f,
-                                                params[:limit].to_i)
+    if params.include?(:longitude) && params.include?(:latitude) && params.include?(:range_x) && params.include?(:range_y)
+      @incident_reports ||= IncidentReport.incidents_within(params[:longitude].to_f,
+                                                            params[:latitude].to_f,
+                                                            params[:range_x].to_i,
+                                                            params[:range_y].to_i,
+                                                            params[:limit].to_i)
     else
       @incident_reports ||= IncidentReport.all
     end

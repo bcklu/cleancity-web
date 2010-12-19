@@ -12,10 +12,10 @@ class IncidentReport < ActiveRecord::Base
   has_many :no_problemers, :class_name => 'User', :through => :incident_reports_users, :conditions => ["type = ?", "not_a_problem"], :source => :user
   
   # use geometrical distance
-  named_scope :near, lambda {
-                |longitude, latitude, limit|
-                  where("abs(longitude - ?)*abs(longitude - ?) + abs(latitude - ?)*abs(latitude-?)",
-                        longitude, longitude, latitude, latitude).limit(limit)
+  named_scope :incidents_within, lambda {
+                |longitude, latitude, range_x, range_y, limit|
+                  where("longitude between ? and ? and latitude between ? and ?",
+                        longitude - range_x, longitude + range_x, latitude - range_y, latitude + range_y).limit(limit)
               }
 
   def lat
