@@ -3,6 +3,8 @@ require 'base64'
 class IncidentReportsController < ApplicationController
   respond_to :json
 
+  DEFAULT_SEARCH_LIMIT = 10
+
   def dislike
     ir = IncidentReport.find(params[:id])
     tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
@@ -67,7 +69,30 @@ class IncidentReportsController < ApplicationController
   end
 
   def index
-    @incident_reports ||= IncidentReport.all
+    # allow searches to be geographically scoped
+    
+    params[:limit] ||= DEFAULT_SEARCH_LIMIT
+    
+    if params.include?(:longitude) && params.include?(:latitude)
+      @incident_reports ||= IncidentReport.near(params[:longitude].to_f,
+                                                params[:latitude].to_f,
+                                                params[:limit].to_i)
+    else
+      @incident_reports ||= IncidentReport.all
+    end
+    
+    respond_to do |format|
+      format.html
+      format.json do
+        # prepare result statement
+        render :json => @incident_reports.map {|ir| { :latitude => ir.latitude,
+                                                      :longitude => ir.longitude,
+                                                      :description => ir.description,
+                                                      :user => ir.author ? ir.author.full_name : "anonymous",
+                                                      :image => ir.image ? ir.image.image.url : "none" }
+        }
+      end
+    end
   end
 
   def edit
