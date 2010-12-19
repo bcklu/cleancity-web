@@ -7,61 +7,73 @@
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <%= image_tag(@incident_report.image.image.url) unless @incident_report.image.nil? %>
-</p>
+<h1><%= @incident_report.description %></h1>
 
-<% if @incident_report.location_valid? %>
-<div id="map" style="background: #ccc; width:300px; height: 300px;"></div>
-<script type="text/javascript">
-$(document).ready(function(){
-    dynamic_gmap_with_marker("map", <%= @incident_report.latitude %>, <%= @incident_report.longitude%>, "<%= escape_javascript(@incident_report.description) %>");
-});
-</script>
-<% end %>
+<div id="container" class="grid_12 ">
+	<div id="left" class="grid_8 alpha">
+		<div id="image">
+			<%= image_tag(@incident_report.image.image.url, :size => "640x480") unless @incident_report.image.nil? %>
+		</div><!-- image -->
+    	<div id="description">
+        	<div class="avatar"></div><!--avatar-->
+       		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in sagittis velit. Praesent fringilla, turpis eget suscipit egestas, dui lacus tempor magna, nec ultrices elit mauris et urna. Proin sit amet lectus neque, ac aliquet lectus. Nulla egestas, lectus eget faucibus rhoncus, libero nisi vulputate urna, eget iaculis quam sem ut dolor. Nam vulputate, dolor sit amet consectetur  </p>
+		</div><!--description-->
+        
+        <div class="buttons">
+		  Dislikes: <%= @incident_report.dislikers.count %><br/>
+		  Not-A-Problem: <%= @incident_report.no_problemers.count %><br/>
 
-<p>
-  <b>Description:</b>
-  <%= @incident_report.description %>
-</p>
+		  <%= link_to 'Stört mich auch', dislike_incident_report_path %>
+		  <input name="" value="Problem gelöst?" type="button" />
+		  <%= link_to 'kein schandfleck?', not_a_problem_incident_report_path %>
+		  <%= link_to 'Back', incident_reports_path %>
 
-<p>
-  <b>Latitude:</b>
-  <%= @incident_report.latitude %>
-</p>
+        </div><!--buttons-->
+        
+        <div class="comments">
+        	<h2>Kommentare</h2>
 
-<p>
-  <b>Longitude:</b>
-  <%= @incident_report.longitude %>
-</p>
+			<% @incident_report.comments.each do |c| %>
+			    <div id="comment_<%=c.id%>" class="a_comment">
+					<div class="avatar"></div><!--avatar-->
+		       		<p><strong><%= c.author.full_name if c.author %></strong><%=h c.body %></p>
+			    </div>
+			<% end %>
+			
+			<div id="comment_new">
+			  <% @comment = @incident_report.comments.build %>
+			  <%= semantic_form_for(@comment, :url => incident_report_incident_report_comments_path(@incident_report)) do |form| %>
+			    <%= form.inputs do %>
+			      <%= form.input :body %>
+			    <% end %>
 
-<p>
-  Dislikes: <%= @incident_report.dislikers.count %><br/>
-  Not-A-Problem: <%= @incident_report.no_problemers.count %><br/>
-</p>
+			    <%= form.buttons %>
+			  <% end %>
+			</div>
+        </div><!--comments-->
+        
+	</div><!--left-->
 
-<p>
-</p>
-
-<p>
-  <% @incident_report.comments.each do |c| %>
-    <div id="comment_<%=c.id%>">
-      <%= c.body %>
-    </div>
-  <% end %>
-</p>
-
-<p>
-  <% @comment = @incident_report.comments.build %>
-  <%= semantic_form_for(@comment, :url => incident_report_incident_report_comments_path(@incident_report)) do |form| %>
-    <%= form.inputs do %>
-      <%= form.input :body %>
-    <% end %>
-
-    <%= form.buttons %>
-  <% end %>
-</p>
-
-<%= link_to 'Dislike', dislike_incident_report_path %>
-<%= link_to 'Not A Problem', not_a_problem_incident_report_path %>
-<%= link_to 'Back', incident_reports_path %>
+	<div id="right" class="grid_4  omega">
+    
+		<div id="map">
+        	<% if @incident_report.location_valid? %>
+				<div id="map" style="background: #ccc; width:300px; height: 300px;"></div>
+				<script type="text/javascript">
+					$(document).ready(function(){
+			    		dynamic_gmap_with_marker("map", <%= @incident_report.latitude %>, <%= @incident_report.longitude%>, "<%= escape_javascript(@incident_report.description) %>");
+					});
+				</script>
+			<% end %>
+        </div><!--map-->
+        
+        <div id="subscribe">
+        	RSS & beobachten buttons go here
+        </div><!--subscribe-->
+        
+        <div id="categories">
+        	Categories go here
+        </div><!--categories-->
+        
+	</div><!--right-->
+</div><!--container-->
