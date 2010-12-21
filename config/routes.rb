@@ -19,7 +19,7 @@ Rails3Base::Application.routes.draw do
       end
     end
 
-    resources :incident_report_comments
+    resources :comments, :controller => 'incident_report_comments'
   end
 
   # static pages

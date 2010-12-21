@@ -33,28 +33,16 @@
 
         </div><!--buttons-->
         
-        <div class="comments">
+        <div id="comments" class="comments">
         	<h2>Kommentare</h2>
 
-			<% @incident_report.comments.each do |c| %>
-			    <div id="comment_<%=c.id%>" class="a_comment">
-					<div class="avatar"></div><!--avatar-->
-		       		<p><strong><%= c.author.full_name if c.author %></strong><%=h c.body %></p>
-			    </div>
-			<% end %>
+					<%= render @incident_report.comments %>
+				</div><!--comments-->    	
 			
-			<div id="comment_new">
-			  <% @comment = @incident_report.comments.build %>
-			  <%= semantic_form_for(@comment, :url => incident_report_incident_report_comments_path(@incident_report)) do |form| %>
-			    <%= form.inputs do %>
-			      <%= form.input :body %>
-			    <% end %>
-
-			    <%= form.buttons %>
-			  <% end %>
-			</div>
-        </div><!--comments-->
-        
+		<div id="comment_new">
+			<% @comment = @incident_report.comments.build %>
+			<%= render :partial => 'comments/form', :locals => {:comment => @comment} %>
+		</div>
 	</div><!--left-->
 
 	<div id="right" class="grid_4  omega">

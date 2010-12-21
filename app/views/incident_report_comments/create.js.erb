@@ -1,0 +1,2 @@
+$('#comment_new').html("<%= escape_javascript(render :partial => 'comments/form', :locals => {:comment => @c}) %>");
+$('#comments').append("<%= escape_javascript(render :partial => @comment) %>");
