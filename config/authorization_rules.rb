@@ -15,6 +15,8 @@ authorization do
   role :user do
     includes :guest
     
+    has_permission_on :incident_reports, :to => [:index, :show, :dislike, :not_a_problem, :resolve]
+    
     # will be switched over to a resource-based theme later
     has_permission_on :comments, :to => [:edit, :update, :destroy] do
       if_attribute :author => is {user}
