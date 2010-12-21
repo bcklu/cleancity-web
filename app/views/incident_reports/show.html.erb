@@ -19,18 +19,17 @@
        		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in sagittis velit. Praesent fringilla, turpis eget suscipit egestas, dui lacus tempor magna, nec ultrices elit mauris et urna. Proin sit amet lectus neque, ac aliquet lectus. Nulla egestas, lectus eget faucibus rhoncus, libero nisi vulputate urna, eget iaculis quam sem ut dolor. Nam vulputate, dolor sit amet consectetur  </p>
 		</div><!--description-->
         
-        <div class="buttons">
-		  Dislikes: <%= @incident_report.dislikers.count %><br/>
-		  Not-A-Problem: <%= @incident_report.no_problemers.count %><br/>
-		  Resolvers: <%= @incident_report.resolvers.count %><br/>
+      <div id="likes">
+				<%= render :partial => 'incident_reports/likes', :locals => { :incident => @incident_report } %>
+			</div>
 
-		  <% if current_user %>
-		  	<%= link_to 'Stört mich auch', dislike_incident_report_path %>
-		  	<%= link_to "Problem gelöst?", resolve_incident_report_path %>
-		  	<%= link_to 'kein schandfleck?', not_a_problem_incident_report_path %>
-		  <% end %>
-		  <%= link_to 'Back', incident_reports_path %>
-
+			<div class="buttons">
+		  	<% if current_user %>
+		  		<%= link_to 'Stört mich auch', dislike_incident_report_path, :remote => true %>
+		  		<%= link_to "Problem gelöst?", resolve_incident_report_path, :remote => true %>
+		  		<%= link_to 'kein schandfleck?', not_a_problem_incident_report_path, :remote => true %>
+		  		<% end %>
+		  		<%= link_to 'Back', incident_reports_path %>
         </div><!--buttons-->
         
         <div id="comments" class="comments">
