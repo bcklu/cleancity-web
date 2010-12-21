@@ -10,12 +10,15 @@ class IncidentReportsController < ApplicationController
   
   STATES.each do |state|
     send :define_method, state do
-      ir = IncidentReport.find(params[:id])
-      tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(ir.id, User.first.id)
-      tmp.type = state == "resolved" ? "resolved" : state
+      @ir = IncidentReport.find(params[:id])
+      tmp = IncidentReportsUser.find_or_create_by_incident_report_id_and_user_id(@ir.id, User.first.id)
+      tmp.type = state == "resolve" ? "resolved" : state
       tmp.save
 
-      redirect_to incident_report_path(ir.id)  
+      respond_to do |format|
+        format.html { redirect_to incident_report_path(@ir.id) }
+        format.js
+      end
     end
   end
 
