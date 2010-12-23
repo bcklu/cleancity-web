@@ -9,7 +9,7 @@ SimpleNavigation::Configuration.run do |navigation|
       signed_in_user.item :dashboard, 'Dashboard', root_path
     end
     
-    primary.with_options(:if => Proc.new {current_user.admin?}) do |admin_user|
+    primary.with_options(:if => Proc.new {current_user && current_user.admin?}) do |admin_user|
       # TODO: add an admin dashboard
       admin_user.item :admin, 'Admin', admin_incident_reports_path do |admin|
         admin.item :incidents, 'Incidents', admin_incident_reports_path
