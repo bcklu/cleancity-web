@@ -20,6 +20,10 @@ class IncidentReport < ActiveRecord::Base
                   where("longitude between ? and ? and latitude between ? and ?",
                         longitude - range_x, longitude + range_x, latitude - range_y, latitude + range_y).limit(limit)
               }
+              
+  scope :solved, where("aasm_state = ?", 'solved')
+  scope :published, where("aasm_state = ?", 'published')
+  scope :latest, lambda { |count| order("created_at DESC").limit(count) }
 
   aasm_initial_state :published
 
