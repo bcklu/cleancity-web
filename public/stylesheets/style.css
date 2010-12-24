@@ -1,90 +1,15 @@
 @charset "utf-8";
-/* CSS Document */
+
+@import "960.css";
+@import "container.css";
+@import "navigation.css";
 
 body{
 	background-image:url(../images/background.jpg);	
 	background-position:top center;
 	margin: 0 0;
 	padding:0 0;
-}
-
-h1, h2, h3 {
-	padding: 5px 0 5px 0;
-	margin: 0 0 0 0;
-}
-
-
-/* HEADER */
-div#header {
-	width:100%;
-	height:70px;
-}
-
-div#header {
-	height:50px;
-}
-
-div#logo {
-	float:left;
-	width: 20%;
-	min-width:370px;
-	height:50px;
-	background-color:#fff;
-	background-image:url(../images/schandfleck_logo.png);
-	background-repeat:no-repeat;
-}
-
-div#header div#menu{
-	float:left;	
-	width:60%;
-	height:50px;
-}
-
-div#header div#login{
-	float:right;
-	width:20%;
-	height:50px;
-}
-
-/* HEADER END*/
-
-
-/* CONTENT */
-div#content {
-	background-image:url(../images/background-content-header.png);	
-}
-
-div#content div#container {
-	background-image:url(../images/background-content.png);	
-	width:960px;
-	padding:0 0;
-	margin: 0 0;
-}
-
-div#content  div.avatar{
-	float:left;
-	height:50px;
-	width:50px;
-	border:#333 dotted 1px;/* dev */
-}
-
-
-div.comments {
-		border:#333 dotted 1px;/* dev */	
-}
-
-div#right div#map{
-	width:300px;
-	height:300px;
-	border: #999 dotted 1px; /* dev */
-	
-}
-
-
-/* CONTENT END*/
-
-div#footer_content {
-	width:960px;
-	margin:0 0;
-	background-image:url(../images/background-content.png);	
+	direction: ltr;
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 12px;
 }

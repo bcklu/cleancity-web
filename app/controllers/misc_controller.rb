@@ -6,4 +6,8 @@ class MiscController < ApplicationController
   def faq
     render :template => 'static/faq', :layout => true
   end
+  
+  def contributors
+    render :template => 'static/contributors', :layout => true
+  end  
 end

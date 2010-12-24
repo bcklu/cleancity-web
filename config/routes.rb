@@ -8,9 +8,9 @@ Rails3Base::Application.routes.draw do
     get 'signup', :to => 'devise/registrations#new', :as => 'new_user_registration'
   end
 
-  root :to => redirect{|p, req| "http://schandflecken.wordpress.com" }
-
-  match "/" => redirect{|p, req| "http://schandflecken.wordpress.com" }
+#  root :to => redirect{|p, req| "http://schandflecken.wordpress.com" }
+   root :to => "landingpage#index"
+#  match "/" => redirect{|p, req| "http://schandflecken.wordpress.com" }
 
   resources :incident_reports do
     member do
@@ -25,6 +25,7 @@ Rails3Base::Application.routes.draw do
   # static pages
   match "/agb" => "misc#agb"
   match "/faq" => "misc#faq"
+  match "/contributors" => "misc#contributors"  
 
   # API access
   scope '/1' do

@@ -1,0 +1,122 @@
+/*
+.....................................................................
+HEADER 
+.....................................................................
+*/
+div#logo {
+	max-width:259px;
+	padding: 6px;
+	margin-top: 10px;
+	background-color:#fff;
+	text-align: right;
+}
+
+div#logo_expand {
+	position: absolute;
+	min-height: 35px;
+	background-color:#fff;
+	padding: 6px;
+	width: 35%;
+	z-index: -1;
+}
+
+div#search {
+	float:right;
+	margin-right: 15px;
+}
+
+div#search input {
+	border: 0px;
+	background-color: #e3e4e5;
+	padding: 0.5em;
+	font-size: 1.1em;
+	color: #333333;
+}
+
+/*
+.....................................................................
+CONTENT
+.....................................................................
+*/
+div#content_wrapper {
+	clear:both;
+	margin: 0px auto;
+	width:960px;
+	margin-top: 15px;
+	background-image:url(../images/background-content-header.png);
+	background-repeat: no-repeat;
+}
+
+div#content_wrapper h1, h2, h3 {
+	padding-left: 15px;
+	padding-top: 15px;	
+}
+
+div#content, div#footer {
+	padding: 9px;
+	background-image:url(../images/background-content.png);
+}
+
+div#footer {
+	padding-top: 2em;
+	text-align: center;
+}
+
+div#footer a {
+	color: #333333;
+}
+
+div#content {
+	padding-top: 5px;
+}
+
+div#content p {
+	margin: 1.5em;
+}
+
+div#map {
+	margin-top: 16px;
+}
+
+div#map .title {
+	font-size: 1.4em;
+	padding-bottom: 0.2em;
+	color: #707173;
+}
+
+/*
+.....................................................................
+Landing Page
+.....................................................................
+*/
+div#landingpage h2 {
+	margin: 0;
+	padding: 0;
+	color: #707173;
+	font-size: 1.8em;
+	margin-bottom: 1em;
+}
+
+div#landingpage h3 {
+	margin: 0;
+	padding: 0;
+	color: #444444;
+	font-size: 1.2em;
+	border-bottom: 1px solid #cccccc;
+}
+
+div#landingpage .col {
+	width: 48%;
+	padding: 1em;
+}
+
+div#landingpage .r {
+	float:right;
+}
+
+div#landingpage .incimg {
+	float:left;
+	margin-top: 3px;
+	padding-right: 5px;
+	padding-bottom: 2px;	
+}
