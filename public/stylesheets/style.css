@@ -13,3 +13,7 @@ body{
 	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
 	font-size: 12px;
 }
+
+#external_login{
+  text-align: center;
+}

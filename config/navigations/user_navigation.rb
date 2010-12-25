@@ -9,7 +9,6 @@ SimpleNavigation::Configuration.run do |navigation|
       user.item :sign_out, 'Sign out', destroy_user_session_path
     else
       user.item :sign_in, 'Sign in', new_user_session_path
-      user.item :sign_up, 'Sign up', new_user_registration_path
     end
   end
 end
