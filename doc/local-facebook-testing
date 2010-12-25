@@ -1,0 +1,17 @@
+To test the app with facebook login it is necessary, that the facebook authentication
+redirection url, matches your local developer site.
+
+* setup a new facebook app at http://developers.facebook.com/setup
+- sitename: test
+- site url: http://localhost:3000/
+
+* put your new info in config/config.yml
+
+* start local server, login with facebook
+* to make yourself an admin open a rails console and update your user
+
+rails c
+
+u=User.first
+u.admin = true
+u.save
