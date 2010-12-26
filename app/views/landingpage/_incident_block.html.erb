@@ -1,6 +1,1 @@
-<div class="listincident">
-	<a href="<%= incident_report_path(incident_block) %>">
-		<h3><%= incident_block.description %></h3>
-	</a>
-	<p><%= image_tag(incident_block.image.image.url, :size => "155x125", :class => "incimg") %> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting...</p>
-</div>
+<li><%= link_to(image_tag(incident_block.image.image.url, :size => "155x125", :class => "incimg"),incident_report_path(incident_block)) %> <%= incident_block.description %> <br /><small>Has <%= incident_block.comments.count %> comments and <%= incident_block.dislikers.count %> people dislike it too.</small></li> <!-- we should have a nice badge for the dislike counter (like the retweet count badge) -->

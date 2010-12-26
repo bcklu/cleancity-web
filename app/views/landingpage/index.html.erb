@@ -6,10 +6,14 @@
 	</div>
 	<div class="col r">
 		<h2>Behobene Schandflecken</h2>
-		<%= render :partial => 'incident_block', :collection => @solved_incident_reports %>
+		<ul class="incidentlist">
+			<%= render :partial => 'incident_block', :collection => @solved_incident_reports %>
+		</ul>
 	</div>
 	<div class="col l">
 		<h2>Neue Schandflecken</h2>
-		<%= render :partial => 'incident_block', :collection => @latest_incident_reports %>
+		<ul class="incidentlist">
+			<%= render :partial => 'incident_block', :collection => @latest_incident_reports %>
+		</ul>
 	</div>
 </div>

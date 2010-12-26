@@ -17,3 +17,38 @@ body{
 #external_login{
   text-align: center;
 }
+
+fieldset {
+	border: 0px;
+}
+
+.formtastic li {
+	list-style: none;
+}
+
+.formtastic fieldset {
+}
+
+.formtastic legend {
+	color: #dfd;
+	background: #141;
+	font-family: sans-serif;
+	padding: 0.2em 1em;
+}
+
+.formtastic label {
+	width: 5em;
+	float: left;
+	text-align: right;
+	padding-top: 0.2em;
+	margin-right: 1.5em;
+	display:block;
+}
+
+.formtastic select, .formtastic textarea, .formtastic input {
+	margin-left: 0.5em;
+}
+
+.formtastic .submit {
+	margin-left: 4em;
+}

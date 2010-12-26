@@ -3,7 +3,8 @@ require 'base64'
 class IncidentReportsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:index, :show]
-  filter_resource_access
+#  filter_resource_access
+  filter_access_to :all
   
   DEFAULT_SEARCH_LIMIT = 10
   STATES = ["dislike", "not_a_problem", "resolve"]

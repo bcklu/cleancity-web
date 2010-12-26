@@ -1,3 +1,4 @@
+<%= image_tag("banner.png", :alt => configatron.app_name) %>
 <% content_for :head do %>
     <%= javascript_include_tag 'gmap' %>
     <script type="text/javascript"
@@ -7,16 +8,15 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1><%= @incident_report.description %></h1>
-
-<div id="container" class="grid_12 ">
-	<div id="left" class="grid_8 alpha">
-		<div id="image">
-			<%= image_tag(@incident_report.image.image.url, :size => "640x480") unless @incident_report.image.nil? %>
-		</div><!-- image -->
+<div id="incident_container" class="grid_12 ">
+	<div class="left" class="grid_8 alpha">
+		<div class="image">
+			<%= image_tag(@incident_report.image.image.url, :size => "450x450") unless @incident_report.image.nil? %>
+		</div>
+		<!-- image -->
     	<div id="description">
         	<div class="avatar"></div><!--avatar-->
-       		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in sagittis velit. Praesent fringilla, turpis eget suscipit egestas, dui lacus tempor magna, nec ultrices elit mauris et urna. Proin sit amet lectus neque, ac aliquet lectus. Nulla egestas, lectus eget faucibus rhoncus, libero nisi vulputate urna, eget iaculis quam sem ut dolor. Nam vulputate, dolor sit amet consectetur  </p>
+       		<p><%= @incident_report.description %></p>
 		</div><!--description-->
         
       <div id="likes">
@@ -34,9 +34,8 @@
         
         <div id="comments" class="comments">
         	<h2>Kommentare</h2>
-
-					<%= render @incident_report.comments %>
-				</div><!--comments-->    	
+			<%= render @incident_report.comments %>
+		</div><!--comments--> 
 			
 		<div id="comment_new">
 			<% @comment = @incident_report.comments.build %>
@@ -44,8 +43,7 @@
 		</div>
 	</div><!--left-->
 
-	<div id="right" class="grid_4  omega">
-    
+	<div id="right" class="grid_4  omega">    
 		<div id="map">
         	<% if @incident_report.location_valid? %>
 				<div id="map" style="background: #ccc; width:300px; height: 300px;"></div>
