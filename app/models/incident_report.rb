@@ -5,8 +5,9 @@ class IncidentReport < ActiveRecord::Base
   has_one :image, :dependent => :destroy
   has_many :comments, :dependent => :destroy
 
-  validates_presence_of :latitude, :longitude, :description, :author, :image
-  validates_numericality_of :latitude, :longitude
+  validates_presence_of :author, :image
+  validates_numericality_of :latitude, :allow_nil => true
+  validates_numericality_of :longitude, :allow_nil => true
   validates_length_of :description, :maximum => 255
 
   has_many :incident_reports_users, :dependent => :destroy
@@ -40,7 +41,7 @@ class IncidentReport < ActiveRecord::Base
   end
   
   def location_valid?
-    latitude > 0.0 && longitude > 0.0
+    latitude && longitude && latitude > 0.0 && longitude > 0.0
   end
   
   def user_name

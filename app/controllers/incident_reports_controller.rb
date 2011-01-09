@@ -30,10 +30,7 @@ class IncidentReportsController < ApplicationController
     # temporary create the incident report
     # TODO: move this into virtual model method?
     p = params[:incident_report] || {}
-    @incident_report = IncidentReport.new :latitude => p[:latitude],
-                                          :longitude => p[:longitude],
-                                          :description => p[:description],
-                                          :author => user
+    @incident_report = IncidentReport.new( :author => @current_user )
     
     # store image data in a temporary file
     if p[:image].blank?
@@ -59,10 +56,10 @@ class IncidentReportsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if @incident_report.save
-          redirect_to @incident_report
+        if @incident_report.save!
+          redirect_to [:edit, @incident_report]
         else
-          render @incident_report
+          render :action => 'new'
         end
       end
     end
@@ -75,6 +72,17 @@ class IncidentReportsController < ApplicationController
   def new
     @incident_report ||= IncidentReport.new
   end
+
+  def update
+    @incident_report = IncidentReport.find(params[:id])
+    if @incident_report.update_attributes(params[:incident_report])
+      flash[:notice] = "Successfully updated incident report."
+      redirect_to @incident_report
+    else
+      render :action => 'edit'
+    end
+  end
+
 
   def index
     # allow searches to be geographically scoped

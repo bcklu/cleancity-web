@@ -1,2 +1,8 @@
 <%= image_tag("banner.png", :alt => configatron.app_name) %>
-<%= render 'form' %>
+
+
+<%= semantic_form_for(@incident_report, :html => { :multipart => true }) do |form| %>
+	<%= form.input :image, :as => :file %>
+
+  <%= form.buttons %> or <%= link_to 'cancel', @current_object %>
+<% end %>
