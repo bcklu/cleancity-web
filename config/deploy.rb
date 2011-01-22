@@ -10,6 +10,11 @@ Capistrano deploy script
 =end
 default_run_options[:pty] = true
 
+set :stages, %w(staging production)
+set :default_stage, "staging"
+require 'capistrano/ext/multistage'
+
+
 set :application, "cleancity"
 set :repository, "git://github.com/mgratzer/cleancity-web.git"
 set :virtual_hostname, "cleancity.dyndns.org"
@@ -26,8 +31,8 @@ set :deploy_via, :remote_cache
 set :branch, :master
 set :git_shallow_clone, 1
 set :scm_verbose, true
+set(:deploy_to){"/var/rails/#{application}/#{stage}"}
 
-set :deploy_to, "/var/rails/#{application}"
 
 namespace :deploy do
   desc "Restart the appliaction, passenger looks for the restart.txt file and restart automatically"
@@ -71,7 +76,7 @@ namespace :deploy do
     require 'erb'
     html = ERB.new(File.read("config/apache_virtual_host.rhtml")).result(binding)
     put html, "#{shared_path}/config/virtual-host"
-    run "ln -nfs #{shared_path}/config/virtual-host /etc/apache2/sites-available/#{application}"
+    run "ln -nfs #{shared_path}/config/virtual-host /etc/apache2/sites-available/#{application}-#{stage}"
   end
 
 end
