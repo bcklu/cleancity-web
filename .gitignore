@@ -5,6 +5,7 @@ tmp/*
 coverage/*
 rerun.txt
 config/database.yml
+config/config.yml
 doc/**/*
 public/system/**/*
 config/deploy.pem
