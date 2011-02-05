@@ -15,6 +15,8 @@ module Rails3Base
     # Add additional load paths for your own custom dirs
     # config.load_paths += %W( #{config.root}/extras )
 
+    config.secret_token = "some secret token"
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

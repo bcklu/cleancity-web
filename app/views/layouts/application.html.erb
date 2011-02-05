@@ -18,7 +18,7 @@
 					<%= text_field_tag(:q, defaultValue, :onfocus => "if(this.value == '#{defaultValue}') {this.value = ''}", :onblur => "if(this.value == '') {this.value = '#{defaultValue}'}") %>
 				<% end %>
 			</div>
-			<div id="logo"><%= link_to(image_tag("schandfleck_logo.png", :alt => configatron.app_name), :root) %></div>
+			<div id="logo"><%= link_to(image_tag("schandfleck_logo.png", :alt => configatron.app_name, :border=>0), :root) %></div>
 		</div>
 		<div id="navigation">
 			<%= render 'layouts/navigation' %>

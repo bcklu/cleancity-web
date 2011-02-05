@@ -1,0 +1,21 @@
+defaults: &defaults
+  token: d77d65f2f8a2ee751d816683e05a8ea216732234341bb5e951022317eba0835b9f1229c3eecac185584af3b61262e390b195dee85610b672bcc1492fb9e2f816
+  app_name: Schandfleck.in
+  noreply: noreply@fs-rails3-base.heroku.com
+  host: localhost:3000
+  identities:
+    twitter:
+      key: lNoxZ6nl76MxkQHgp9Nn6w
+      secret: a2oqxyw3BXcbznqlu4Pm5kPxOQcBRt3OIrTbp6G7v0
+    facebook:
+      key: "171571639549640"
+      secret: "c6a46421793b3bb86cae77ec82363486"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
