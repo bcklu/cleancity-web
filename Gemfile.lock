@@ -188,6 +188,7 @@ GEM
     rest-client (1.6.1)
       mime-types (>= 1.16)
     rest-graph (1.6.0)
+    rmagick (2.13.1)
     rr (1.0.2)
     rspec (2.2.0)
       rspec-core (~> 2.2)
@@ -255,6 +256,7 @@ DEPENDENCIES
   paperclip
   rails (= 3.0.3)
   rest-graph
+  rmagick
   rr (= 1.0.2)
   rspec-rails (= 2.2.1)
   shoulda (= 2.11.3)

@@ -20,6 +20,8 @@ gem 'declarative_authorization'
 gem 'exifr'
 gem 'rest-graph'
 
+gem 'rmagick', :require => 'RMagick'
+
 group :test, :development do
   gem 'capistrano-ext'
 #  gem 'mongrel', '1.2.0.pre2'
