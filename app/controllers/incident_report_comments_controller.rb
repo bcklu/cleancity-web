@@ -7,7 +7,7 @@ class IncidentReportCommentsController < ApplicationController
 
     if ir
       @comment = ir.comments.build params[:comment]
-      @comment.author = ir.author
+      @comment.author = @current_user
       @comment.save!
     else
       raise ir.inspect

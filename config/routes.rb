@@ -12,6 +12,13 @@ Rails3Base::Application.routes.draw do
    root :to => "landingpage#index"
 #  match "/" => redirect{|p, req| "http://schandflecken.wordpress.com" }
 
+  resources :subscriptions do
+     member do
+       get 'confirm'
+       get 'unsubscribe'
+     end
+   end
+
   resources :incident_reports do
     member do
       IncidentReportsController::STATES.each do |state|

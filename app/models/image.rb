@@ -1,7 +1,7 @@
 class Image < ActiveRecord::Base
   belongs_to :incident_report
 
-  has_attached_file :image
+  has_attached_file :image, :styles => { :thumbnail => "300x300" }
   
   validates_presence_of :content_type
   

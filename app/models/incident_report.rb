@@ -9,6 +9,8 @@ class IncidentReport < ActiveRecord::Base
   validates_numericality_of :latitude, :allow_nil => true
   validates_numericality_of :longitude, :allow_nil => true
   validates_length_of :description, :maximum => 255
+  
+  after_create :deliver_new_incident_notification
 
   has_many :incident_reports_users, :dependent => :destroy
   has_many :dislikers, :class_name => 'User', :through => :incident_reports_users, :conditions => ["type = ?", "dislike"], :source => :user
@@ -38,6 +40,13 @@ class IncidentReport < ActiveRecord::Base
   
   aasm_event :mark_as_not_a_problem do
     transitions :to => :not_a_problem, :from => [:published]
+  end
+  
+  # TODO limit notifications
+  def deliver_new_incident_notification
+    Subscription.all.each do |subscription|
+      SubscriptionMailer.new_incident(self, subscription).deliver
+    end
   end
   
   def location_valid?
