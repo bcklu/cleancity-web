@@ -24,16 +24,6 @@
        		<p><%= @incident_report.description %></p>
 		</div><!--description-->
         
-		<div id="subscriptions">
-			<% subscription = Subscription.new %>
-			<%= semantic_form_for(subscription, :url => subscriptions_path(subscription), :remote => true) do |f| %>
-				<%= f.inputs do %>
-					<%= f.input :email %>
-			  <% end %>
-				<%= f.buttons %>
-			<% end %>
-		</div>
-
       <div id="likes">
 				<%= render :partial => 'incident_reports/likes', :locals => { :incident => @incident_report } %>
 			</div>
@@ -57,24 +47,4 @@
 			<%= render :partial => 'comments/form', :locals => {:comment => @comment} %>
 		</div>
 	</div><!--left-->
-
-	<div id="right" class="grid_4  omega">    
-        	<% if @incident_report.location_valid? %>
-				<div id="map" style="background: #ccc; width:300px; height: 300px;"></div>
-				<script type="text/javascript">
-					$(document).ready(function(){
-			    		dynamic_gmap_with_marker("map", <%= @incident_report.latitude %>, <%= @incident_report.longitude%>, "<%= escape_javascript(@incident_report.description) %>");
-					});
-				</script>
-			<% end %>
-        
-        <div id="subscribe">
-        	RSS & beobachten buttons go here
-        </div><!--subscribe-->
-        
-        <div id="categories">
-        	Categories go here
-        </div><!--categories-->
-        
-	</div><!--right-->
 </div><!--container-->

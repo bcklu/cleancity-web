@@ -1,12 +1,12 @@
 class SubscriptionsController < ApplicationController
   def create
-    @subscription = Subscription.new :email => params[:subscription][:email],
-                                     :secret => ActiveSupport::SecureRandom.hex(16)
+    @subscription = Subscription.new params[:subscription]
+    @subscription.secret = ActiveSupport::SecureRandom.hex(16)
 
     # i believe this is something that might be frowned upon
     respond_to do |format|
       if @subscription.save
-        format.html { redirect_to incident_report_path(ir) }
+        format.html { redirect_to incident_reports_path }
         format.js
       else
         raise @subscription.errors.full_messages.inspect
@@ -14,8 +14,14 @@ class SubscriptionsController < ApplicationController
     end
   end
   
+  def new
+    @subscription = Subscription.new
+    @subscription.longitude = 14.30899
+    @subscription.latitude = 46.62794
+    @subscription.distance = 1000
+  end
+  
   def confirm
-    
     # TODO: there is some error with the route generation.. there is a ? as last
     #       element within the URL
     if params[:email].last == "?"

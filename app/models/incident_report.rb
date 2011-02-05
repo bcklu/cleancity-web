@@ -1,6 +1,6 @@
 class IncidentReport < ActiveRecord::Base
   include AASM
-
+  
   belongs_to :author, :class_name => 'User'
   has_one :image, :dependent => :destroy
   has_many :comments, :dependent => :destroy
@@ -11,7 +11,7 @@ class IncidentReport < ActiveRecord::Base
   validates_length_of :description, :maximum => 255
   
   after_create :deliver_new_incident_notification
-
+  
   has_many :incident_reports_users, :dependent => :destroy
   has_many :dislikers, :class_name => 'User', :through => :incident_reports_users, :conditions => ["type = ?", "dislike"], :source => :user
   has_many :no_problemers, :class_name => 'User', :through => :incident_reports_users, :conditions => ["type = ?", "not_a_problem"], :source => :user
@@ -42,9 +42,8 @@ class IncidentReport < ActiveRecord::Base
     transitions :to => :not_a_problem, :from => [:published]
   end
   
-  # TODO limit notifications
   def deliver_new_incident_notification
-    Subscription.all.each do |subscription|
+    Subscription.within(self.longitude, self.latitude).each do |subscription|
       SubscriptionMailer.new_incident(self, subscription).deliver
     end
   end
