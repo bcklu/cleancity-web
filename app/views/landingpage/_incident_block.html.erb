@@ -1,17 +1,32 @@
 <li>
-	<%= link_to(image_tag(incident_block.image.image.url(:incident_block), :class => "incimg"),incident_report_path(incident_block)) %>
+	<%= link_to(image_tag(incident_block.image.image.url(:incident_block), :class => "incimg"),incident_report_path(incident_block), :html => { :border => 0 }) %>
 	<%= truncate(incident_block.description, :length => 50) %><br/>
 	<small>
-		<% if incident_block.comments.count == 0 %>
-		<%elsif incident_block.comments.count == 1 %>
-			Hat einen Kommentar<br/>
-		<% else %>
-			Hat <%= incident_block.comments.count %> Kommentare<br/>
-		<% end %>
-		<% if incident_block.dislikers.count == 0 %>
- 		<% else %>
-			Und es stoert andere auch
-		<% end %>
+		Kommentare: <%= incident_block.comments.count %><br/>
+		
+		<div>
+			<% if incident_block.dislikers.count == 0 %>
+				<%= image_tag 'dislike-transparent.gif' %>
+			<% else %>
+				<%= image_tag 'dislike-full.gif' %> <%= incident_block.dislikers.count %>
+			<% end %>
+		</div>
+		
+		<div>
+			<% if incident_block.no_problemers.count == 0 %>
+				<%= image_tag 'no-problem-transparent.gif'%>
+			<% else %>
+				<%= image_tag 'no-problem-full.gif' %> <%= incident_block.no_problemers.count %>
+			<% end %>
+		</div>
+		
+		<div>
+			<% if incident_block.resolvers.count == 0 %>
+				<%= image_tag 'behoben-transparent.gif'%>
+			<% else %>
+				<%= image_tag 'behoben-full.gif' %> <%= incident_block.resolvers.count %>
+			<% end %>
+		</div>
 	</small>
 </li>
 <!-- we should have a nice badge for the dislike counter (like the retweet count badge) -->
