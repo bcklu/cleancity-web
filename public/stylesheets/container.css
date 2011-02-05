@@ -45,6 +45,10 @@ COMMON
 	float:right;
 }
 
+.clear{
+	clear:both;
+}
+
 /*
 .....................................................................
 CONTENT
@@ -122,12 +126,14 @@ div#landingpage h3 {
 
 div#main_content{
 	width:100%;
+	height:auto;
 
 }
 
 div#main_content .col{
 	width:33%;
 	float:left;
+	padding-top:15px;
 }
 
 
@@ -138,13 +144,17 @@ div#landingpage .incimg {
 	padding-bottom: 2px;	
 }
 
-.incidentlist ul {
-	list-style:none;
+ul.incidentlist{
+	padding-left:10px;
+	padding-right:10px;
+
 }
 
 .incidentlist li {
 	clear:both;
 	margin-bottom: 2em;
+	list-style:none;
+	font-size:16px;
 }
 
 /*
