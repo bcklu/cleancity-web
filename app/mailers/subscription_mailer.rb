@@ -1,5 +1,5 @@
 class SubscriptionMailer < ActionMailer::Base
-  default :from => "#{configatron.app_subscribe_user}@#{configatron.app_domain}"
+  default :from => "Schandfleck.in <#{configatron.app_subscribe_user}>"
   
   def confirmation_request(subscription)
     @email = subscription.email
