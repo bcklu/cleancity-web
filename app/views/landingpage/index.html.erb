@@ -7,16 +7,24 @@
 	<div id="main_content">
 		<div class="col">
 			<h2>Neue Schandflecken</h2>
-			<ul class="incidentlist">
-				<%= render :partial => 'incident_block', :collection => @latest_incident_reports %>
-			</ul>
+			<% if @latest_incident_reports.nil? || @latest_incident_reports.empty? %>
+				Keine Schandflecken vorhanden
+			<% else %>
+				<ul class="incidentlist">
+					<%= render :partial => 'incident_block', :collection => @latest_incident_reports %>
+				</ul>
+			<% end %>
 		</div>
 		
 		<div class="col">
 			<h2>Behobene Schandflecken</h2>
-			<ul class="incidentlist">
-				<%= render :partial => 'incident_block', :collection => @solved_incident_reports %>
-			</ul>
+			<% if @solved_incident_reports.nil? || @solved_incident_reports.empty? %>
+				Noch keine Schandflecken behoben
+			<% else %>
+				<ul class="incidentlist">
+					<%= render :partial => 'incident_block', :collection => @solved_incident_reports %>
+				</ul>
+			<% end %>
 		</div>
 
 		<div class="col">
