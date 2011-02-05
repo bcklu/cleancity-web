@@ -2,7 +2,7 @@ require 'base64'
 
 class IncidentReportsController < ApplicationController
   
-  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :authenticate_user!, :except => [:index, :show, :feed]
 #  filter_resource_access
   filter_access_to :all
   
@@ -67,6 +67,12 @@ class IncidentReportsController < ApplicationController
 
   def show
     @incident_report ||= IncidentReport.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.atom { render :layout => false }
+      format.rss { redirect_to incident_reports_path(:format => :atom), :status => :moved_permanently }
+    end
   end
 
   def new
@@ -101,6 +107,8 @@ class IncidentReportsController < ApplicationController
     
     respond_to do |format|
       format.html
+      format.atom { render :layout => false }
+      format.rss { redirect_to incident_reports_path(:format => :atom), :status => :moved_permanently }
     end
   end
 
