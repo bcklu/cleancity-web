@@ -19,6 +19,16 @@
        		<p><%= @incident_report.description %></p>
 		</div><!--description-->
         
+		<div id="subscriptions">
+			<% subscription = Subscription.new %>
+			<%= semantic_form_for(subscription, :url => subscriptions_path(subscription), :remote => true) do |f| %>
+				<%= f.inputs do %>
+					<%= f.input :email %>
+			  <% end %>
+				<%= f.buttons %>
+			<% end %>
+		</div>
+
       <div id="likes">
 				<%= render :partial => 'incident_reports/likes', :locals => { :incident => @incident_report } %>
 			</div>
