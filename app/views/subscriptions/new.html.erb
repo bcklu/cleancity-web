@@ -5,28 +5,38 @@
 	</script>
 <% end  %>
 
-<div id="subscriptions">
-	<%= semantic_form_for(@subscription) do |f| %>
-		<%= f.inputs do %>
-			<%= f.input :latitude, :as => :hidden  %>
-    	<%= f.input :longitude, :as => :hidden  %>
-      <%= f.input :distance %>
-			<%= f.input :email %>
-	  <% end %>
-		<%= f.buttons %>
-	<% end %>
-</div>
+<p id="notice"><%= notice %></p>
 
-<div id="right" class="grid_4  omega">
-	  <input id="address" /> 
-	<div id="map" style="background: #ccc; width:300px; height: 300px;"></div>
-		<script type="text/javascript">
+<div>
+	<div id="map" style="background: #ccc; width:600px; height: 300px;"></div>
+	<script type="text/javascript">
 				$(document).ready(function(){
 		    		dynamic_gmap_with_marker("map", <%= @subscription.latitude %>, <%= @subscription.longitude%>, "Wo?");
 				});
-		</script>
-	</div>      
-</div><!--right-->
+	</script>
+</div>
+
+<div>
+	<div id="subscriptions">
+		<%= form_for(@subscription) do |f| %>
+			<%= f.hidden_field :latitude %>
+    	<%= f.hidden_field :longitude %>
+			<div>
+		  	<%= f.label :distance %>
+      	<%= f.text_field :distance %>
+			</div>
+			<div>
+      	<%= f.label :email %>
+				<%= f.text_field :email %>
+			</div>
+			<%= f.submit %>
+		<% end %>
+	</div>
+</div>
+
+<div class="left_column_content">
+	<i>Beschreibung des subscription features..</i>
+</div>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -38,3 +48,5 @@
     addMarkerChangedListener('subscriptions_latitude', 'subscriptions_longitude');
   });
 </script>
+
+<div style="clear:both"></div>

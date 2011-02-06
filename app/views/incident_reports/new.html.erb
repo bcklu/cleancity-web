@@ -1,8 +1,7 @@
 <%= image_tag("banner.png", :alt => configatron.app_name) %>
 
 
-<%= semantic_form_for(@incident_report, :html => { :multipart => true }) do |form| %>
-	<%= form.input :image, :as => :file %>
-
-  <%= form.buttons %>
+<%= form_for(@incident_report, :html => { :multipart => true }) do |form| %>
+	<%= form.text_field :image, :as => :file %>
+  <%= form.submit %>
 <% end %>

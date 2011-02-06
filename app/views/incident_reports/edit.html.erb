@@ -23,7 +23,7 @@
         
 			<div class="buttons">
 
-<%= semantic_form_for(@incident_report, :html => { :multipart => true }) do |form| %>
+<%= form_for(@incident_report, :html => { :multipart => true }) do |form| %>
   <%= form.inputs do %>
     <%= form.input :latitude, :as => :hidden  %>
     <%= form.input :longitude, :as => :hidden  %>
