@@ -84,6 +84,13 @@ class IncidentReportsController < ApplicationController
   def update
     @incident_report = IncidentReport.find(params[:id])
     if @incident_report.update_attributes(params[:incident_report])
+      
+      incident_url = incident_report_url(@incident_report)
+      
+      if params[:incident_report][:facebook] == "1"
+        @incident_report.upload_to_facebook(current_user, incident_url)
+      end
+      
       flash[:notice] = "Successfully updated incident report."
       redirect_to @incident_report
     else

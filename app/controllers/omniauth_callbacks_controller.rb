@@ -12,9 +12,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def callback
     auth = env['omniauth.auth']
     provider = auth['provider']
-    user = User.find_by_identity_for(provider, auth['uid'], current_user)
+    uid = auth['uid']
+    access_token = auth['credentials']['token']
 
-    logger.info(auth)
+    user = User.find_by_identity_for(provider, uid, access_token, current_user)
 
     if user.present?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', :kind => provider

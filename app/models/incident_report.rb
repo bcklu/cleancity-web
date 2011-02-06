@@ -1,5 +1,7 @@
 class IncidentReport < ActiveRecord::Base
   include AASM
+
+  attr_accessor :facebook
   
   belongs_to :author, :class_name => 'User'
   has_one :image, :dependent => :destroy
@@ -76,4 +78,21 @@ class IncidentReport < ActiveRecord::Base
       self.author.save!
     end
   end
+  
+  def upload_to_facebook(current_user, incident_url)
+    if Rails.env == 'production'
+      picture_url = "http://#{configatron.host}/#{self.image.image.url}"
+    else
+      picture_url = "http://schandflecken.files.wordpress.com/2010/12/2010-12-18-schandfleck-logo_wb_v1_940x198.png"
+      incident_url = "http://schandfleck.in"
+    end
+    current_user.facebook.feed!(
+      :message => 'Neuer Schandfleck in meiner Umgebung.',
+      :picture => picture_url,
+      :link => incident_url,
+      :name => "Schandfleck at #{latitude} / #{longitude}",
+      :description => description
+    )
+  end
+  
 end

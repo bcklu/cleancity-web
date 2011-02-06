@@ -23,13 +23,13 @@ class Api::IncidentReportsController < ApplicationController
       return
     end
     
-    user = User.find_by_identity_for('facebook', fb_creds['id'], nil)
+    user = User.find_by_identity_for('facebook', fb_creds['id'], p[:access_token], nil)
     unless user
       # create user with facebook info from fb_creds
       user = User.new(:email => "#{fb_creds['id']}@facebook.com", :full_name => fb_creds['name'])
       user.skip_confirmation!
 
-      user.identities.build(:provider => 'facebook', :uid => fb_creds['id'])
+      user.identities.build(:provider => 'facebook', :uid => fb_creds['id'], :access_token => p[:access_token])
       user.save!
     end
         

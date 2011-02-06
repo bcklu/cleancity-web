@@ -18,4 +18,10 @@ class User < ActiveRecord::Base
   def role_symbols
     admin? ? [:admin] : [:user]
   end
+  
+  
+  def facebook
+    @fb_user ||= FbGraph::User.me(self.identities.find_by_provider('facebook').access_token)
+  end
+  
 end

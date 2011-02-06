@@ -10,12 +10,14 @@ module User::OmniAuthExtension
     # Find user by omniauth uid for specified provider
     # Or create new identity if user given
     #
-    def find_by_identity_for(provider, uid, current_user)
+    def find_by_identity_for(provider, uid, access_token, current_user)
       identity = UserIdentity.find_by_provider_and_uid(provider, uid)
+      # check if we have an access token
+      identity.update_attributes(:access_token => access_token) if identity.access_token.nil?
       return identity.user if identity
 
       if current_user
-        current_user.identities.create!(:provider => provider, :uid => uid)
+        current_user.identities.create!(:provider => provider, :uid => uid, :access_token => access_token)
         return current_user
       end
 
@@ -37,7 +39,8 @@ module User::OmniAuthExtension
 
           user.identities.build(
               :provider => data['provider'],
-                  :uid => data['uid'])
+              :uid => data['uid'],
+              :access_token => data['credentials']['token'])
         end
       end
     end

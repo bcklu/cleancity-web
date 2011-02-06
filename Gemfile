@@ -20,6 +20,7 @@ gem 'paperclip'
 gem 'declarative_authorization'
 gem 'exifr'
 gem 'rest-graph'
+gem 'fb_graph', '1.4.0'
 
 gem 'rmagick', :require => 'RMagick'
 

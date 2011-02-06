@@ -27,6 +27,7 @@
   <%= form.inputs do %>
     <%= form.input :latitude, :as => :hidden  %>
     <%= form.input :longitude, :as => :hidden  %>
+    <%= form.input :facebook, :as => :boolean, :label => "Post to Facebook" %>
     <%= form.input :description, :as => :text %>
   <% end %>
 

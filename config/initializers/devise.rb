@@ -160,7 +160,11 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   #config.omniauth :twitter, configatron.identities.twitter.key, configatron.identities.twitter.secret
-  config.omniauth :facebook, configatron.identities.facebook.key, configatron.identities.facebook.secret
+  # config.omniauth :facebook, configatron.identities.facebook.key, 
+  #                           configatron.identities.facebook.secret
+  config.omniauth :facebook, configatron.identities.facebook.key, 
+                            configatron.identities.facebook.secret,
+                            {:scope => "publish_stream,email,offline_access"}
   
 
   # ==> Warden configuration
