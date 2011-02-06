@@ -4,7 +4,9 @@ authorization do
     has_permission_on [:admin_incident_reports, :admin_users], :to => [:index, :show, :new, :create, :edit, :update, :destroy]
     
     has_permission_on [:incident_report_comments], :to => [:index, :show, :new, :create, :edit, :update, :destroy]
-    has_permission_on [:incident_reports], :to => [:index, :show, :new, :create, :edit, :update, :destroy, :update_attribute_on_the_spot]
+    
+    # remove :edit, :update
+    has_permission_on [:incident_reports], :to => [:index, :show, :new, :create, :destroy, :update_attribute_on_the_spot]
   end
   
   role :guest do
@@ -22,6 +24,7 @@ authorization do
       if_attribute :author => is {user}
     end
     
+    # :edit is needed for upload
     has_permission_on :incident_reports, :to => [:edit, :update, :destroy, :update_attribute_on_the_spot] do
       if_attribute :author => is {user}
     end

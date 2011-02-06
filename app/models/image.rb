@@ -1,7 +1,7 @@
 class Image < ActiveRecord::Base
   belongs_to :incident_report
 
-  has_attached_file :image, :styles => { :incident_block => "100x" }
+  has_attached_file :image, :styles => { :incident_block => "100x", :profile => "400x" }
   
   validates_presence_of :content_type
   

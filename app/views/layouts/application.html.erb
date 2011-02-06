@@ -13,10 +13,12 @@
 		<div id="logo_expand"></div>
 		<div id="header" class="container_12">
 			<div id="search">
+				<!--
 				<% defaultValue = 'PLZ oder Ort' %>
 				<%= form_tag do %>
 					<%= text_field_tag(:q, defaultValue, :onfocus => "if(this.value == '#{defaultValue}') {this.value = ''}", :onblur => "if(this.value == '') {this.value = '#{defaultValue}'}") %>
 				<% end %>
+			-->
 			</div>
 			<div id="logo"><%= link_to(image_tag("schandfleck_logo.png", :alt => configatron.app_name, :border=>0), :root) %></div>
 		</div>
@@ -30,7 +32,7 @@
 			&nbsp;
 			<% end %>
 			<div id="content">
-				<div id="messges">
+				<div id="messages">
 					<%= render 'layouts/messages' %>
 				</div>				
 				<%= yield %>

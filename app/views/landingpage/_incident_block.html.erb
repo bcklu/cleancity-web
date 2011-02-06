@@ -15,17 +15,13 @@
 			<% else %>
 				<%= image_tag 'dislike-full.gif' %> <%= incident_block.dislikers.count %>
 			<% end %>
-		</div>
-		
-		<div>
+
 			<% if incident_block.no_problemers.count == 0 %>
 				<%= image_tag 'no-problem-transparent.gif'%>
 			<% else %>
 				<%= image_tag 'no-problem-full.gif' %> <%= incident_block.no_problemers.count %>
 			<% end %>
-		</div>
-		
-		<div>
+
 			<% if incident_block.resolvers.count == 0 %>
 				<%= image_tag 'behoben-transparent.gif'%>
 			<% else %>

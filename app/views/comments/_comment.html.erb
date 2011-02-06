@@ -1,4 +1,10 @@
-<div id="comment_<%=comment.id%>" class="a_comment">
-	<div class="avatar"></div><!--avatar-->
- 	<p><strong><%= comment.author.full_name if comment.author %></strong><%=h comment.body %></p>
+<div class="left_column_content_incident">
+	<div id="incident_comment_picture" class="left_column_content_incident_comment_description">
+		<%= image_tag "user-02.jpg" %>
+	</div>
+
+	<div id="incident_comment_text" class="right_column_content_incident_comment_description">
+		Name: <%= comment.author.full_name if comment.author %><br></br>
+		<%= comment.body %>
+	</div>
 </div>

@@ -94,7 +94,7 @@ div#content p {
 }
 
 div#map {
-	margin-top: 16px;
+	margin-top: 0px;
 }
 
 div#map .title {
@@ -159,6 +159,189 @@ ul.incidentlist{
 
 /*
 .....................................................................
-Incident Reports
+Incident Reports - Upload
 .....................................................................
 */
+
+
+div.left_column{
+		float:left;
+		width:50%;
+	}
+div.right_column{
+		float:left;
+		width:50%;
+	}
+
+div.map{
+		height:500px;
+
+	}
+
+div.upload_pic{
+		height:300px;
+		background-color:#F3F3F3;
+	
+	}
+	
+div.upload_pic_description{
+		height:200px;
+		background-color:#e3e4e5;
+	
+	}
+	
+fieldset {
+		border:none;
+	}
+	
+fieldset div.date{
+		padding-bottom:20px;
+	}
+	
+fieldset div.descripton{
+		
+	}
+	
+fieldset input.submit{
+		margin-left:70%;
+	}
+
+/*
+.....................................................................
+Incident Reports - Description
+.....................................................................
+*/
+
+hr {
+	color: #272727;
+	margin-bottom: 25px;
+	}
+
+div#content_wrapper {
+	clear:both;
+	margin: 0px auto;
+	width:960px;
+	margin-top: 15px;
+	background-image:url(../images/background-content-header.png);
+	background-repeat: no-repeat;
+}
+
+div.left_column_content {
+	float:left;
+	margin: 0px auto;
+	width:630px;
+}
+
+div.right_column_content {
+	float:left;
+	margin: 0px;
+	margin-left: 40px;
+	width:255px;
+}
+
+div.left_column_content_incident{
+	float:left;
+	width:400px;
+	margin-top: 5px;
+}
+div.left_column_content_incident_comment_own{
+	float:left;
+	width:400px;
+	background-color: #e3e4e5;
+	margin-top:15px;
+	margin-bottom:15px;
+}
+
+div.right_column_content_incident{
+	float:left;
+	margin-left:15px;
+	width:215px;
+}
+
+div.left_column_content_incident_description{
+	float:left;
+	width:75px;
+}
+
+div.right_column_content_incident_description{
+	float:left;
+	margin-left:15px;
+	width:310px;
+}
+
+div.left_column_content_incident_description_evaluation{
+	float:left;
+	width:400px;
+}
+
+div.left_column_content_incident_comment_description{
+	float:left;
+	width:75px;
+}
+
+div.right_column_content_incident_comment_description{
+	float:left;
+	margin-left:15px;
+	width:310px;
+}
+
+div.left_column_content_incident_comment_own_description{
+	float:left;
+	width:75px;
+	height:110px;
+	padding:0;
+}
+
+div.right_column_content_incident_comment_own_description{
+	float:left;
+	margin-left:15px;
+	width:310px;
+	padding:0;
+}
+
+
+div#incident_menu_left {
+	margin: 0px;
+	padding: 0;
+	font-size: 12px;
+	text-align:left;
+}
+
+div#incident_menu_right {
+	margin: 0px;
+	padding: 0;
+	font-size: 12px;
+	text-align:right;
+}
+
+div#incident_picture {
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding: 0;
+}
+
+div#incident_map {
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding: 0;
+
+}
+
+div#incident_description_picture {
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding: 0;
+}
+
+div#incident_description_text {
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding: 0;
+}
+
+div#incident_evaluation_button {
+	margin-top: 15px;
+	margin-bottom: 0px;
+	padding: 0;
+}
+

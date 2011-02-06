@@ -14,48 +14,80 @@
 
 <p id="notice"><%= notice %></p>
 
-<div id="incident_container" class="grid_12 ">
-	<div class="left" class="grid_8 alpha">
-		<div class="image">
-			<%= image_tag(@incident_report.image.image.url, :size => "450x450") unless @incident_report.image.nil? %>
-		</div>
-		<!-- image -->
-		
-		<div id="map" style="background: #ccc; width:300px; height: 300px;"></div>
-    <% if @incident_report.location_valid? %>
-			<script type="text/javascript">
-					$(document).ready(function(){
-			      static_gmap_with_marker("map", <%= @incident_report.latitude %>, <%= @incident_report.longitude%>, "<%= escape_javascript(@incident_report.description) %>");
-					});
-			</script>
-    <% end %>
-		
-    	<div id="description">
-        	<div class="avatar"></div><!--avatar-->
-       		<p><%= on_the_spot_edit @incident_report, :description %></p>
-		</div><!--description-->
-        
-      <div id="likes">
-				<%= render :partial => 'incident_reports/likes', :locals => { :incident => @incident_report } %>
-			</div>
+<div class="left_column_content">
 
-			<div class="buttons">
-		  	<% if current_user %>
-		  		<%= link_to 'Stört mich auch', dislike_incident_report_path, :remote => true %>
-		  		<%= link_to "Problem gelöst?", resolve_incident_report_path, :remote => true %>
-		  		<%= link_to 'kein schandfleck?', not_a_problem_incident_report_path, :remote => true %>
-		  		<% end %>
-		  		<%= link_to 'Back', :back %>
-        </div><!--buttons-->
-        
-        <div id="comments" class="comments">
-        	<h2>Kommentare</h2>
-			<%= render @incident_report.comments %>
-		</div><!--comments--> 
-			
-		<div id="comment_new">
-			<% @comment = @incident_report.comments.build %>
-			<%= render :partial => 'comments/form', :locals => {:comment => @comment} %>
+	<div id="incident_menu_left" class="left_column_content_incident">&lt;&nbsp;<%= link_to "voriger Eintrag", @incident_report.previous %></div>
+	<div id="incident_menu_right" class="right_column_content_incident"><%= link_to "nächster Eintrag", @incident_report.next %>&nbsp;&gt</div>
+
+	<div id="incident_picture" class="left_column_content_incident">
+		<%= image_tag(@incident_report.image.image.url(:profile)) unless @incident_report.image.nil? %>
+	</div>	
+	
+	<div id="incident_map" class="right_column_content_incident">
+		<div id="map" style="background: #ccc; width:215px; height: 200px;"></div>
+		</br>
+		Datum: <%=l @incident_report.created_at.to_date %>
+	</div>
+	
+	<% if @incident_report.location_valid? %>
+		<script type="text/javascript">
+				$(document).ready(function(){
+		      static_gmap_with_marker("map", <%= @incident_report.latitude %>, <%= @incident_report.longitude%>, "<%= escape_javascript(@incident_report.description) %>");
+				});
+		</script>
+  <% end %>
+  
+	<div style="clear:both"></div>
+
+	<div id="incident_description" class="left_column_content_incident">
+		<div id="incident_description_picture" class="left_column_content_incident_description">
+			<%= image_tag "user-01.jpg "%>
 		</div>
-	</div><!--left-->
-</div><!--container-->
+		
+		<div id="incident_description_text" class="right_column_content_incident_description">
+			Name:<br></br>
+			<%= @incident_report.description %>
+		</div>
+	</div>
+	
+	<div id="incident_evaluation" class="right_column_content_incident">
+		<%= render :partial => 'incident_reports/likes', :locals => { :incident => @incident_report } %>
+	</div>
+	
+	<div style="clear:both"></div>
+	
+	<% if current_user %>
+		<div id="incident_evaluation_button" class="left_column_content_incident_evaluation">
+			<%= link_to image_tag('button-dislike-01.gif'), dislike_incident_report_path, :remote => true %>
+  		<%= link_to image_tag('button-behoben-01.gif'), resolve_incident_report_path, :remote => true %>
+  		<%= link_to image_tag('button-no-problem-01.gif'), not_a_problem_incident_report_path, :remote => true %>
+		</div>
+	<% end %>
+
+	<div style="clear:both"></div>
+
+	<hr></hr>
+
+	Kommentare:<br></br>
+	<br></br>
+
+	<div id="incident_comments">
+		<%= render @incident_report.comments %>
+	</div>
+
+
+	<% @comment = @incident_report.comments.build %>
+	<div id="incident_comments" class="left_column_content_incident_comment_own">
+		<div id="incident_comment_own_empty" class="left_column_content_incident_comment_own_description">
+		</div>
+		<div id="incident_comment_own_text" class="right_column_content_incident_comment_own_description">
+			<%= render :partial => 'comments/form', :locals => {:comment => @comment} %>
+    </div>
+	</div>
+</div>
+
+<div class="right_column_content_incident">
+	WEITERE SCHANDFLECKEN
+</div>
+
+<div style="clear:both"></div>

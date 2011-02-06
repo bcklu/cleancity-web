@@ -42,6 +42,14 @@ class IncidentReport < ActiveRecord::Base
     transitions :to => :not_a_problem, :from => [:published]
   end
   
+  def next
+    IncidentReport.where("created_at > ?", created_at).limit(1).order("created_at ASC").first
+  end
+  
+  def previous
+    IncidentReport.where("created_at < ?", created_at).limit(1).order("created_at DESC").first
+  end
+  
   def deliver_new_incident_notification
     Subscription.within(self.longitude, self.latitude).each do |subscription|
       SubscriptionMailer.new_incident(self, subscription).deliver

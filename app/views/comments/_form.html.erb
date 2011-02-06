@@ -1,6 +1,8 @@
-<%= semantic_form_for(comment, :url => incident_report_comments_path(comment.incident_report), :remote => true) do |f| %>
-	<%= f.inputs do %>
-		<%= f.input :body %>
-  <% end %>
-	<%= f.buttons %>
+<%= form_for(comment, :url => incident_report_comments_path(comment.incident_report), :remote => true) do |f| %>
+	<fieldset>
+		<div class="description">
+			<%= f.text_area :body, :size => "31x3" %>
+  		<%= f.submit "submit", :html => { :style => "margin-top:5px; margin-bottom:5px; margin-right:0px;"} %>
+		</div>
+	</fieldset>
 <% end %>

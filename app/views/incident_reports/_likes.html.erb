@@ -1,3 +1,17 @@
-Dislikes: <%= incident.dislikers.count %><br/>
-Not-A-Problem: <%= incident.no_problemers.count %><br/>
-Resolvers: <%= incident.resolvers.count %><br/>
+<!-- TODO switch between -full and -transparent image -->
+<%= image_tag "dislike-full.gif" %>Stört das auch
+<% if incident.dislikers.count > 0 %>
+	(<%= incident.dislikers.count %>)
+<% end %>
+<br></br>
+
+<%= image_tag "no-problem-full.gif" %>Ist kein Schandfleck
+<% if incident.no_problemers.count > 0 %>
+	(<%= incident.no_problemers.count %>)
+<% end %>
+<br></br>
+
+<%= image_tag "behoben-transparent.gif" %>Schandfleck behoben
+<% if incident.resolvers.count > 0 %>
+	(<%= incident.resolvers.count %>)
+<% end %>

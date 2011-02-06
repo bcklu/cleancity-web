@@ -1,20 +1,17 @@
 <% content_for :head do %>
 	<%= auto_discovery_link_tag :atom, incident_reports_url(:atom) %>
 	<%= auto_discovery_link_tag :rss, incident_reports_url(:rss) %>
+	
+	<%= javascript_include_tag 'gmap' %>
+	<script type="text/javascript"
+	        src="http://maps.google.com/maps/api/js?sensor=false">
+	</script>
 <% end %>
 
-<iframe width="929" height="250" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Klagenfurt&amp;sll=37.0625,-95.677068&amp;sspn=64.880423,135.263672&amp;ie=UTF8&amp;hq=&amp;hnear=Klagenfurt,+Klagenfurt+am+W%C3%B6rthersee,+Carinthia,+Austria&amp;ll=46.62794,14.30899&amp;spn=0.007015,0.016512&amp;z=14&amp;output=embed"></iframe>
-
-<% unless @incident_reports.blank? %>
-  <%= table_for(@incident_reports) %>
-<% else %>
-  <p>Now it's time to create some data here. To create new entry, please use the button below.</p>
-  <br /><br />
-<% end %>
-
-<br />
-
-<p>
-  <%= link_to 'New Incident report', new_incident_report_path, :class => 'button' %>
-</p>
-
+<div id="map" style="background: #ccc; width:929px; height: 500px;"></div>
+<script type="text/javascript">
+    a = <%= prepare_markers(@incident_reports); %>
+		$(document).ready(function(){
+	     static_gmap_with_markers("map", 46.62794, 14.30899, a);
+		});
+</script>
