@@ -8,6 +8,7 @@
 		<% content_for :head do %>
 			<%= auto_discovery_link_tag :atom, incident_report_url(@incident_report, :atom) %>
 			<%= auto_discovery_link_tag :rss, incident_report_url(@incident_report, :rss) %>
+			<%= javascript_include_tag :on_the_spot %>
 		<% end %>
 <% end %>
 
@@ -19,9 +20,19 @@
 			<%= image_tag(@incident_report.image.image.url, :size => "450x450") unless @incident_report.image.nil? %>
 		</div>
 		<!-- image -->
+		
+		<div id="map" style="background: #ccc; width:300px; height: 300px;"></div>
+    <% if @incident_report.location_valid? %>
+			<script type="text/javascript">
+					$(document).ready(function(){
+			      static_gmap_with_marker("map", <%= @incident_report.latitude %>, <%= @incident_report.longitude%>, "<%= escape_javascript(@incident_report.description) %>");
+					});
+			</script>
+    <% end %>
+		
     	<div id="description">
         	<div class="avatar"></div><!--avatar-->
-       		<p><%= @incident_report.description %></p>
+       		<p><%= on_the_spot_edit @incident_report, :description %></p>
 		</div><!--description-->
         
       <div id="likes">

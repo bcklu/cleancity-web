@@ -25,6 +25,10 @@ Rails3Base::Application.routes.draw do
         get state
       end
     end
+    
+    collection do
+      post :update_attribute_on_the_spot
+    end
 
     resources :comments, :controller => 'incident_report_comments'
   end

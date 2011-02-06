@@ -2,6 +2,8 @@ require 'base64'
 
 class IncidentReportsController < ApplicationController
   
+  can_edit_on_the_spot
+  
   before_filter :authenticate_user!, :except => [:index, :show, :feed]
 #  filter_resource_access
   filter_access_to :all

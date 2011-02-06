@@ -1,5 +1,10 @@
 <li>
-	<%= link_to(image_tag(incident_block.image.image.url(:incident_block), :class => "incimg"),incident_report_path(incident_block), :html => { :border => 0 }) %>
+	<% if incident_block.image.nil? %>
+		display some place-holder image
+	<% else %>
+		<%= link_to(image_tag(incident_block.image.image.url(:incident_block), :class => "incident_blockimg"),incident_report_path(incident_block), :html => { :border => 0 }) %>
+	<% end %>
+	
 	<%= truncate(incident_block.description, :length => 50) %><br/>
 	<small>
 		Kommentare: <%= incident_block.comments.count %><br/>

@@ -23,6 +23,24 @@ function dynamic_gmap_with_marker(container, latitude, longitude, text) {
   marker.setMap(map);
 }
 
+function static_gmap_with_marker(container, latitude, longitude, text) {
+  var latlng = new google.maps.LatLng(latitude, longitude);
+  var myOptions = {
+    zoom: 14,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById(container), myOptions);
+  marker = new google.maps.Marker({
+    position: latlng,
+    draggable: false,
+    animation: google.maps.Animation.DROP,          
+    title:text
+  });
+  marker.setMap(map);
+}
+
+
 function addMarkerChangedListener(lat_elem, lng_elem)
 {
   google.maps.event.addListener(marker, 'position_changed', function() {
