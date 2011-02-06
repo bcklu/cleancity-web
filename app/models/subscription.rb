@@ -15,8 +15,8 @@ class Subscription < ActiveRecord::Base
   
   scope :within, lambda {
                 |longitude, latitude|
-                  where("longitude between (? - (distance/2)/1000*0.157) and (? + (distance/2)/1000*0.157) and latitude between (? - (distance/2)/1000*0.157) and (?+(distance/2)/1000*0.157)",
-                        longitude, longitude, latitude, latitude)
+                  where("longitude between (? - (distance/2)/1000*0.157) and (? + (distance/2)/1000*0.157) and latitude between (? - (distance/2)/1000*0.157) and (?+(distance/2)/1000*0.157) and state = ?",
+                        longitude, longitude, latitude, latitude, "authenticated")
               }
   
   after_create :deliver_confirmation_request

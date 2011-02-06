@@ -22,16 +22,7 @@ class SubscriptionsController < ApplicationController
   end
   
   def confirm
-    # TODO: there is some error with the route generation.. there is a ? as last
-    #       element within the URL
-    if params[:email].last == "?"
-      email = params[:email][0..-2]
-    else
-      email = params[:email]
-    end
-    
-    subscription = Subscription.find_by_email_and_secret(email,
-                                                         params[:id])
+    subscription = Subscription.find_by_secret(params[:id])
 
     if subscription
       subscription.confirm!
@@ -45,17 +36,8 @@ class SubscriptionsController < ApplicationController
     end
   end
   
-  def unsubscribe
-    # TODO: there is some error with the route generation.. there is a ? as last
-    #       element within the URL
-    if params[:email].last == "?"
-      email = params[:email][0..-2]
-    else
-      email = params[:email]
-    end
-    
-    @subscription = Subscription.find_by_email_and_secret(email,
-                                                         params[:id])
+  def unsubscribe    
+    @subscription = Subscription.find_by_secret(params[:id])
 
     if @subscription
       @subscription.destroy
