@@ -1,6 +1,6 @@
 <% content_for :head do %>
     <script type="text/javascript"
-          src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAvIAUtie_efP6AQ24QW9KxRTMKrgnF9Hq5kcOEYBLrf5rxoOCZRQGvACiMVjzadcvAiMCfY2nPL7byQ&sensor=false" other="ABQIAAAAvIAUtie_efP6AQ24QW9KxRTFEVmsgrkx4XZAkygY0NAZzuzSixQNu2S_-qkEdZtcmEMvpbHeocze7g&sensor=false" >
+      src="http://maps.google.com/maps?file=api&v=2&key=<%= configatron.gmapkeyv2 %>&sensor=false" >
     </script>
     <%= javascript_include_tag 'clustermap' %>
     <%= javascript_include_tag 'data' %>
