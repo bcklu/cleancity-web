@@ -48,4 +48,16 @@ class SubscriptionsController < ApplicationController
       format.html
     end    
   end
+  
+  def destroy
+    subscription = Subscription.find(params[:id])
+    
+    respond_to do |format|  
+      if subscription.destroy
+        format.js
+      else
+        format.js
+      end
+    end
+  end
 end

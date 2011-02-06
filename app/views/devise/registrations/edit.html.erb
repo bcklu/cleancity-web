@@ -16,4 +16,18 @@
   <% end %>
 <% end %>
 
+<h2>Schandfleck-Abos:</h2>
+<table border="0" cellspacing="5" cellpadding="5">
+	<% Subscription.find(:all, :conditions => { :email => resource.email}).each do |subscription| %>
+		<tr><th>Email</th><th>Longitude</th><th>Latitude</th><th>Distance</th><th></th></tr>
+		<tr>
+			<td><%= subscription.email %></td>
+			<td><%= subscription.longitude %></td>
+			<td><%= subscription.latitude %></td>
+			<td><%= subscription.distance %></td>
+			<td><%= link_to "Loeschen", subscription, :remote => true, :confirm => 'Are you sure?', :method => :delete %>
+		</tr>
+	<% end %>
+</table>
+
 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
