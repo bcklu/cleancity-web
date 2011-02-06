@@ -84,7 +84,7 @@ class Api::IncidentReportsController < ApplicationController
                                                             params[:latitude].to_f,
                                                             params[:range_x].to_i,
                                                             params[:range_y].to_i,
-                                                            params[:limit].to_i)
+                                                            params[:limit].to_i).includes(:image).includes(:author)
     else
       @incident_reports ||= IncidentReport.all
     end
